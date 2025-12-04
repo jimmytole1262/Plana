@@ -1,0 +1,175 @@
+.main {
+    width: 100%;
+    min-height: 100vh;
+    background: linear-gradient(135deg, #e6ecf0, #ffffff);
+    padding: 20px;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  .header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+  
+  .header h1 {
+    font-size: 40px;
+    color: #36C2CE;
+    font-family: "Montserrat", sans-serif;
+    font-weight: 700;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .header p {
+    font-size: 18px;
+    color: #555;
+    font-family: "Roboto Mono", monospace;
+  }
+  
+  .success-message {
+    background: #42df71;
+    padding: 15px;
+    text-align: center;
+    border-radius: 8px;
+    color: white;
+    margin-bottom: 20px;
+    font-family: "Montserrat", sans-serif;
+  }
+  
+  .error-message {
+    color: #ff4d4d;
+    text-align: center;
+    margin-bottom: 20px;
+    font-family: "Montserrat", sans-serif;
+  }
+  
+  .issues-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+  }
+  
+  .issue-card {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .issue-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  }
+  
+  .issue-card h3 {
+    color: #36C2CE;
+    font-size: 22px;
+    margin-bottom: 10px;
+    font-family: "Montserrat", sans-serif;
+  }
+  
+  .issue-card p {
+    color: #555;
+    font-size: 16px;
+    font-family: "Roboto Mono", monospace;
+    margin-bottom: 10px;
+  }
+  
+  .date {
+    font-size: 12px;
+    color: #999;
+    font-family: "Roboto Mono", monospace;
+    display: block;
+    margin-top: 5px;
+  }
+  
+  .responses {
+    margin-top: 15px;
+    padding: 10px;
+    background: #f9f9f9;
+    border-radius: 8px;
+  }
+  
+  .responses h4 {
+    color: #36C2CE;
+    font-size: 16px;
+    margin-bottom: 10px;
+    font-family: "Montserrat", sans-serif;
+  }
+  
+  .response-form {
+    margin-top: 20px;
+  }
+  
+  .response-form textarea {
+    width: 95%;
+    padding: 12px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-family: "Roboto Mono", monospace;
+    font-size: 14px;
+    height: 100px;
+    resize: vertical;
+    transition: border-color 0.3s ease;
+  }
+  
+  .response-form textarea:focus {
+    border-color: #36C2CE;
+    outline: none;
+  }
+  
+  .response-form button {
+    padding: 10px 20px;
+    background: #34BE82;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-family: "Montserrat", sans-serif;
+    font-size: 14px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background 0.3s ease, transform 0.3s ease;
+  }
+  
+  .response-form button:disabled {
+    background: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .response-form button:not(:disabled):hover {
+    background: #81C784;
+    transform: translateY(-2px);
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .issues-list {
+      grid-template-columns: 1fr;
+    }
+  
+    .header h1 {
+      font-size: 32px;
+    }
+  
+    .header p {
+      font-size: 16px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .issue-card {
+      padding: 20px;
+    }
+  
+    .response-form textarea {
+      font-size: 12px;
+    }
+  
+    .response-form button {
+      width: 100%;
+    }
+  }

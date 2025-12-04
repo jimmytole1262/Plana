@@ -1,0 +1,345 @@
+/* Reset and Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.container {
+  width: 100%;
+  min-height: 100vh;
+  background: #d8d8d8;
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.navbar {
+  width: 100%;
+  height: 80px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+  background: #36C2CE;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.logo h3,
+.logo i {
+  font-size: 28px;
+  color: white;
+  font-family: "Montserrat", sans-serif;
+}
+
+.title {
+  flex-grow: 1;
+  text-align: center;
+}
+
+.title h3 {
+  font-size: 28px;
+  color: white;
+  font-family: "Montserrat", sans-serif;
+}
+
+.bottom {
+  width: 100%;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.events-text {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.events-text h4 {
+  font-size: 24px;
+  color: #333;
+  font-family: "Montserrat", sans-serif;
+}
+
+.events-text button {
+  padding: 10px 20px;
+  border-radius: 10px;
+  border: none;
+  background: #36C2CE;
+  color: white;
+  font-family: "Montserrat", sans-serif;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.events-text button:hover {
+  background: #2a9aab;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: "Arial", sans-serif;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  background: white;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+table th,
+table td {
+  padding: 12px 15px;
+  text-align: left;
+}
+
+table th {
+  background-color: #009879;
+  color: white;
+  font-weight: bold;
+}
+
+table tr {
+  border-bottom: 1px solid #ddd;
+}
+
+table tr:nth-of-type(even) {
+  background-color: #f3f3f3;
+}
+
+table tr:hover {
+  background-color: #f1f1f1;
+}
+
+table .btns {
+  display: flex;
+  gap: 10px;
+}
+
+button.cancel-btn {
+  background-color: #ff4c4c;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button.cancel-btn:hover {
+  background-color: #ff0000;
+}
+
+button.update-btn {
+  background-color: #4c8cff;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button.update-btn:hover {
+  background-color: #0056ff;
+}
+
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding-top: 60px;
+  overflow-y: auto; /* Ensure modal itself can scroll if content exceeds viewport */
+}
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 5vh auto; /* Center vertically with some top/bottom margin */
+  padding: 25px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 600px;
+  max-height: 90vh; /* Limit height to 90% of viewport */
+  overflow-y: auto; /* Enable scrolling within modal content */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.modal-content h2 {
+  margin-bottom: 20px;
+  color: #36C2CE;
+  font-family: "Montserrat", sans-serif;
+}
+
+.modal-content form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.modal-content label {
+  font-weight: bold;
+  font-family: "Roboto Mono", monospace;
+  color: #333;
+}
+
+.modal-content input,
+.modal-content textarea,
+.modal-content select {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-family: "Roboto Mono", monospace;
+  font-size: 14px;
+  width: 100%;
+}
+
+.modal-content textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+}
+
+button.create-btn {
+  background-color: #36C2CE;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button.create-btn:hover {
+  background-color: #009879;
+}
+
+button.cancel-btn {
+  background-color: #ff4c4c;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button.cancel-btn:hover {
+  background-color: #ff0000;
+}
+
+.close {
+  font-size: 24px;
+  color: #888;
+  cursor: pointer;
+  float: right;
+}
+
+.close:hover {
+  color: #333;
+}
+
+.error {
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+  font-family: "Roboto Mono", monospace;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .navbar {
+    flex-direction: column;
+    height: auto;
+    padding: 15px;
+  }
+
+  .logo,
+  .title {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  .events-text button {
+    width: auto;
+    padding: 8px 15px;
+  }
+
+  table {
+    font-size: 0.9em;
+  }
+}
+
+@media (max-width: 768px) {
+  table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+
+  .modal-content {
+    width: 95%;
+    padding: 15px;
+    max-height: 85vh; /* Slightly smaller on smaller screens */
+  }
+
+  .modal-content input,
+  .modal-content textarea,
+  .modal-content select {
+    font-size: 12px;
+  }
+
+  .modal-buttons {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  button.create-btn,
+  button.cancel-btn {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo h3,
+  .logo i,
+  .title h3 {
+    font-size: 22px;
+  }
+
+  .events-text h4 {
+    font-size: 18px;
+  }
+
+  .events-text button {
+    font-size: 14px;
+  }
+
+  .modal-content {
+    padding: 10px;
+    max-height: 80vh; /* Even smaller for very small screens */
+  }
+}

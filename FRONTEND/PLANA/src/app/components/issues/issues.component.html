@@ -1,0 +1,51 @@
+<div class="main">
+  <div class="container">
+    <div class="navbar">
+      <div class="header">
+        <h3>PLANA</h3>
+        <i class="fa fa-calendar-check-o" aria-hidden="true"></i>
+      </div>
+      <div class="menu">
+        <p routerLink="/user-dashboard">Dashboard</p>
+        <p routerLink="/user-bookings">Bookings</p>
+        <p routerLink="/issues">Issues</p>
+      </div>
+    </div>
+
+    <div class="content">
+      <div class="hero">
+        <h1>Share Your Voice</h1>
+        <p>Help us improve by raising your concerns</p>
+      </div>
+
+      <div *ngIf="message" class="success-message">{{ message }}</div>
+      <div *ngIf="error" class="error-message">{{ error }}</div>
+
+      <div class="submit-issue">
+        <h3>Raise an Issue</h3>
+        <input type="text" [(ngModel)]="newIssue.title" placeholder="Issue Title" required>
+        <textarea [(ngModel)]="newIssue.description" placeholder="Describe your issue" required></textarea>
+        <button [disabled]="!isFormValid()" (click)="submitIssue()">Submit Issue</button>
+      </div>
+
+      <div class="issues-list">
+        <div class="issue-card" *ngFor="let issue of issues">
+          <h4>{{ issue.title }}</h4>
+          <p>{{ issue.description }}</p>
+          <span class="date">Posted: {{ issue.created_at | date: 'dd/MM/yyyy HH:mm' }}</span>
+          <div class="responses" *ngIf="issue.responses && issue.responses.length > 0">
+            <h5>Admin Response:</h5>
+            <div *ngFor="let response of issue.responses">
+              <p>{{ response.response_text }}</p>
+              <span class="date">Responded: {{ response.created_at | date: 'dd/MM/yyyy HH:mm' }}</span>
+            </div>
+          </div>
+          <div class="response-form" *ngIf="userRole === 'admin'">
+            <textarea [(ngModel)]="newResponse[issue.issue_id]" placeholder="Add your response"></textarea>
+            <button [disabled]="!isResponseValid(issue.issue_id)" (click)="submitResponse(issue.issue_id)">Respond</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,17 @@
+export interface Issue {
+  issue_id: string;
+  user_id: string;
+  event_id?: string | null;
+  title: string;
+  description: string;
+  created_at: Date;
+  responses?: IssueResponse[]; // Optional array of responses
+}
+
+export interface IssueResponse {
+  response_id: string;
+  issue_id: string;
+  admin_id: string;
+  response_text: string;
+  created_at: Date;
+}

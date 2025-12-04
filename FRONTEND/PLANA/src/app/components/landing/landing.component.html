@@ -1,0 +1,57 @@
+<app-navbar></app-navbar>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap" rel="stylesheet">
+
+<div class="main">
+  <div class="hero">
+    <div class="hero-content">
+      <h1>WELCOME TO PLANA</h1>
+      <p>Transform your ideas into unforgettable events</p>
+      <p class="tagline">Join our vibrant community and explore a world of events.</p>
+      <div class="cta-buttons">
+        <button class="btn login" routerLink="login">Sign In</button>
+        <button class="btn register" routerLink="register">Sign Up</button>
+      </div>
+    </div>
+  </div>
+
+  <section class="events-section">
+    <div *ngIf="loginMessage" class="login-message">{{ loginMessage }}</div>
+    <h2>Upcoming Events</h2>
+    <div class="events-grid">
+      <div class="event-card" *ngFor="let event of events">
+        <img [src]="event.image" alt="Event image">
+        <div class="event-details">
+          <h3>{{ event.title }}</h3>
+          <p>{{ event.description }}</p>
+          <p><strong>Ticket Type:</strong> {{ event.ticket_type }}</p>
+          <p><strong>Date:</strong> {{ event.date | date }}</p>
+          <p><strong>Price:</strong> Ksh {{ event.price }}</p>
+          <p><strong>Available Tickets:</strong> {{ event.available_tickets }}</p>
+          <button (click)="bookEvent(event.event_id)">Book Now</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="issues-section">
+    <h2>Community Feedback</h2>
+    <div class="issues-grid">
+      <div class="issue-card" *ngFor="let issue of issues">
+        <h3>{{ issue.title }}</h3>
+        <p>{{ issue.description }}</p>
+        <span class="date">Posted: {{ issue.created_at | date: 'dd/MM/yyyy' }}</span>
+        <div class="responses" *ngIf="issue.responses && issue.responses.length > 0">
+          <h4>Admin Response:</h4>
+          <div *ngFor="let response of issue.responses">
+            <p>{{ response.response_text }}</p>
+            <span class="date">Responded: {{ response.created_at | date: 'dd/MM/yyyy' }}</span>
+          </div>
+        </div>
+      </div>
+      <button class="view-more" routerLink="/issues">View All Feedback</button>
+    </div>
+  </section>
+</div>
