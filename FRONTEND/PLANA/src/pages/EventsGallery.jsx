@@ -53,7 +53,7 @@ const EventsGallery = () => {
                 booking_date: new Date().toISOString()
             };
             const response = await bookingService.createBooking(bookingData);
-            if (response.data.message === 'Booking successful') {
+            if (response.data.message === 'Booking created successfully') {
                 alert("Event booked successfully! View it in your dashboard.");
             } else {
                 alert(response.data.message || "Booking failed");
@@ -106,12 +106,12 @@ const EventsGallery = () => {
                                 </div>
                                 <div className="event-details">
                                     <span className="event-tag">{event.ticket_type}</span>
-                                    <h3>{event.title}</h3>
+                                    <h3>{event.title || "Untitled Event"}</h3>
                                     <p className="event-meta">
                                         <span>📅 {new Date(event.date).toLocaleDateString()}</span>
                                         <span>📍 {event.location}</span>
                                     </p>
-                                    <p className="event-desc">{event.description.substring(0, 80)}...</p>
+                                    <p className="event-desc">{event.description?.substring(0, 80) || "No description available"}...</p>
                                     <div className="event-footer">
                                         <span className={`availability ${event.available_tickets < 10 ? 'low' : ''}`}>
                                             {event.available_tickets} slots left

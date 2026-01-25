@@ -62,7 +62,7 @@ const Dashboard = () => {
                     <div className="stat-card">
                         <h3>Upcoming Events</h3>
                         <p className="stat-value">
-                            {bookings.filter(b => new Date(b.date) > new Date()).length}
+                            {Array.isArray(bookings) ? bookings.filter(b => new Date(b.date) > new Date()).length : 0}
                         </p>
                     </div>
                     <div className="stat-card">
@@ -77,12 +77,12 @@ const Dashboard = () => {
                         <div className="loading-spinner">Loading your experience...</div>
                     ) : bookings.length > 0 ? (
                         <div className="bookings-list">
-                            {bookings.map((booking) => (
+                            {Array.isArray(bookings) && bookings.map((booking) => (
                                 <div key={booking.booking_id} className="booking-card">
                                     <div className="booking-info">
-                                        <h3>{booking.title}</h3>
-                                        <p className="event-date">{new Date(booking.date).toLocaleDateString()}</p>
-                                        <p className="event-location">{booking.location}</p>
+                                        <h3>{booking.title || "Unknown Event"}</h3>
+                                        <p className="event-date">{booking.date ? new Date(booking.date).toLocaleDateString() : "No date"}</p>
+                                        <p className="event-location">{booking.location || "No location"}</p>
                                     </div>
                                     <div className="booking-status">
                                         <span className="status-badge">Confirmed</span>

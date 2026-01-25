@@ -46,7 +46,7 @@ export class EventService {
 
 
     async viewAllEvents(): Promise<any> {
-        let result = await pool.query(`SELECT * FROM Events`);
+        let result = await pool.query('SELECT event_id, title, description, date, location, ticket_type, price, image, total_tickets, available_tickets, "isApproved" as "isApproved" FROM Events');
         let rows = result.rows;
 
         console.log("database result:", rows);
@@ -85,7 +85,7 @@ export class EventService {
     }
 
     async viewSingleEvent(event_id: string) {
-        let result = await pool.query(`SELECT * FROM Events WHERE event_id = $1`, [event_id]);
+        let result = await pool.query('SELECT event_id, title, description, date, location, ticket_type, price, image, total_tickets, available_tickets, "isApproved" as "isApproved" FROM Events WHERE event_id = $1', [event_id]);
         let rows = result.rows;
 
         if (rows.length === 0) {

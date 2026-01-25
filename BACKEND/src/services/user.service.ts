@@ -54,37 +54,17 @@ export class userService {
   }
 
   async fetchAllUsers() {
-    let result = await pool.query("SELECT * FROM Users WHERE role IN ('user', 'manager')");
-    let rows = result.rows;
-
-    if (rows.length == 0) {
-      return {
-        users: []
-      }
-    } else {
-      return {
-        users: rows
-      }
-    }
+    let result = await pool.query('SELECT user_id, username, email, role, "isActive" as "isActive" FROM Users WHERE role IN (\'user\', \'manager\')');
+    return result.rows;
   }
 
   async fetchUsers() {
-    let result = await pool.query("SELECT * FROM Users WHERE role = 'user'");
-    let rows = result.rows;
-
-    if (rows.length == 0) {
-      return {
-        users: []
-      }
-    } else {
-      return {
-        users: rows
-      }
-    }
+    let result = await pool.query('SELECT user_id, username, email, role, "isActive" as "isActive" FROM Users WHERE role = \'user\'');
+    return result.rows;
   }
 
   async fetchSingleUser(user_id: string) {
-    let result = await pool.query("SELECT * FROM Users WHERE user_id = $1", [user_id]);
+    let result = await pool.query('SELECT user_id, username, email, password, role, "isActive" as "isActive" FROM Users WHERE user_id = $1', [user_id]);
     let userRows = result.rows;
 
     if (userRows.length === 0) {

@@ -131,7 +131,9 @@ export class BookingService {
                         b.user_id, 
                         u.username, 
                         b.event_id, 
-                        e.title as event_title,
+                        e.title as title,
+                        e.date as date,
+                        e.location as location,
                         e.ticket_type as ticket_type,
                         e."isApproved" as "isApproved", 
                         b.booking_date 
@@ -145,15 +147,7 @@ export class BookingService {
                         b.user_id = $1
                 `, [user_id]);
 
-            if (result.rows.length > 0) {
-                return {
-                    bookingsByUser: result.rows
-                };
-            } else {
-                return {
-                    error: 'No bookings found for this user'
-                };
-            }
+            return result.rows;
         } catch (error) {
             console.error('SQL error', error);
             throw error;
@@ -168,7 +162,9 @@ export class BookingService {
                         b.user_id, 
                         u.username, 
                         b.event_id, 
-                        e.title as event_title,
+                        e.title as title,
+                        e.date as date,
+                        e.location as location,
                         e."isApproved" as "isApproved", 
                         b.booking_date 
                     FROM 
@@ -181,15 +177,7 @@ export class BookingService {
                         b.event_id = $1
                 `, [event_id]);
 
-            if (!lodash.isEmpty(result.rows)) {
-                return {
-                    bookingsByEvent: result.rows
-                };
-            } else {
-                return {
-                    error: 'No bookings found for this event'
-                };
-            }
+            return result.rows;
         } catch (error) {
             console.error('SQL error', error);
             throw error;
