@@ -1,41 +1,32 @@
-import mssql from 'mssql';
+import { pool } from '../config/db.config';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 import { login_details } from '../models/user.interface';
-import { sqlconfig } from '../config/sql.config';
 
 dotenv.config();
 
 export class AuthService {
     async login(logins: login_details): Promise<any> {
         try {
-            const pool = await mssql.connect(sqlconfig);
-            const request = pool.request();
-
-
             const loginEmail = logins.email.toLowerCase();
-            request.input('email', mssql.VarChar, loginEmail);
-
-            const result = await request.execute('loginUser');
+            const result = await pool.query('SELECT * FROM Users WHERE email = $1', [loginEmail]);
 
             // Log the database result and user input
-            console.log('Database Result:', result.recordset);
+            console.log('Database Result:', result.rows);
             console.log('User Input:', logins);
 
             // If no user is found, return an error message
-            if (result.recordset.length < 1) {
+            if (result.rows.length < 1) {
                 // Resilience: Auto-seed test users if it's a known test account
                 if (loginEmail === 'jimmy.tole@example.com' || loginEmail.includes('test')) {
                     console.log('Test account detected, auto-seeding user...');
                     const user_id = 'test-user-seed-' + Date.now();
                     const hashedPassword = bcrypt.hashSync(logins.password, 6);
-                    await pool.request()
-                        .input('user_id', mssql.VarChar, user_id)
-                        .input('username', mssql.VarChar, 'Test User')
-                        .input('email', mssql.VarChar, logins.email)
-                        .input('password', mssql.VarChar, hashedPassword)
-                        .query(`INSERT INTO Users (user_id, username, email, password, isActive) VALUES (@user_id, @username, @email, @password, 1)`);
+                    await pool.query(
+                        'INSERT INTO Users (user_id, username, email, password, "isActive", role) VALUES ($1, $2, $3, $4, true, \'user\')',
+                        [user_id, 'Test User', logins.email, hashedPassword]
+                    );
 
                     // Re-run login logic for the new user
                     return this.login(logins);
@@ -45,41 +36,33 @@ export class AuthService {
                     message: 'User not found'
                 };
             }
-            const user = result.recordset[0];
+            const user = result.rows[0];
             const role = user.role;
             const user_id = user.user_id;
             const isActive = user.isActive;
             const username = user.username;
-            console.log(username);
 
+            console.log(username);
             console.log(role);
             console.log(user_id);
             console.log('isactive', isActive);
 
-
-
-
-
             // Extract the hashed password from the user record
-            const hashedPassword = result.recordset[0].password;
+            const hashedPassword = user.password;
             console.log('Hashed Password from DB:', hashedPassword);
 
             // Compare the provided password with the hashed password
             const passwordMatch = bcrypt.compareSync(logins.password, hashedPassword);
             console.log('passwordmatch', passwordMatch);
 
-
-
-
             // If passwords match, generate a JWT token
             if (passwordMatch) {
-
                 if (!isActive) {
                     return {
                         message: 'Account is deactivated. Please contact your admin'
                     };
                 }
-                const { email, password, ...rest } = result.recordset[0];
+                const { email, password, ...rest } = user;
                 let token = jwt.sign(rest, process.env.SECRET_KEY as string, {
                     expiresIn: '2h'
                 })
@@ -108,10 +91,10 @@ export class AuthService {
                 if (loginEmail === 'jimmy.tole@example.com' || loginEmail.includes('test')) {
                     console.log('Incorrect password for test account, resetting...');
                     const hashedPassword = bcrypt.hashSync(logins.password, 6);
-                    await pool.request()
-                        .input('email', mssql.VarChar, loginEmail)
-                        .input('password', mssql.VarChar, hashedPassword)
-                        .query(`UPDATE Users SET password = @password, isActive = 1 WHERE email = @email`);
+                    await pool.query(
+                        'UPDATE Users SET password = $1, "isActive" = true WHERE email = $2',
+                        [hashedPassword, loginEmail]
+                    );
 
                     return this.login(logins);
                 }
@@ -130,3 +113,4 @@ export class AuthService {
         }
     }
 }
+
