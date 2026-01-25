@@ -1,11 +1,12 @@
-export interface UserDetails{
+export interface UserDetails {
     user_id: string,
     username: string,
     email: string,
     password: string,
+    [key: string]: any;
 }
 
-export interface login_details{
+export interface login_details {
     email: string,
     password: string,
     isActive: boolean

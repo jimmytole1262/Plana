@@ -8,13 +8,15 @@ export class EventController {
     async createEvent(req: Request, res: Response) {
         try {
             let result = await eventService.createEvent(req.body);
-            console.log("Request body:", req.body);
-            console.log("Controller result:", result);
-            
+
+            if ('error' in result) {
+                return res.status(400).json(result);
+            }
+
             return res.status(201).json(result);
-        } catch (error) {
-            return res.json({
-                error: error
+        } catch (error: any) {
+            return res.status(400).json({
+                error: error.message || error
             });
         }
     }
@@ -24,8 +26,8 @@ export class EventController {
             let result = await eventService.viewAllEvents();
             return res.status(200).json(result);
         } catch (error) {
-            return res.json({
-                error
+            return res.status(500).json({
+                error: "Internal Server Error"
             });
         }
     }
@@ -44,46 +46,46 @@ export class EventController {
 
     async updateEvent(req: Request, res: Response) {
         try {
-          const event_id = req.params.event_id;
-          const {
-            title,
-            description,
-            date,
-            location,
-            ticket_type,
-            price,
-            image,
-            total_tickets,
-            available_tickets
-            // isApproved omitted since not updated here
-          } = req.body;
-      
-          console.log('Received update request:', req.body);
-      
-          const event: Event = {
-              event_id,
-              title,
-              description,
-              date,
-              location,
-              ticket_type,
-              price: Number(price),
-              image,
-              total_tickets: Number(total_tickets),
-              available_tickets: Number(available_tickets),
-              isApproved: false
-          };
-      
-          const response = await eventService.updateEvent(event);
-          if ('error' in response) {
-            return res.status(400).json(response);
-          }
-          return res.status(200).json(response);
+            const event_id = req.params.event_id;
+            const {
+                title,
+                description,
+                date,
+                location,
+                ticket_type,
+                price,
+                image,
+                total_tickets,
+                available_tickets
+                // isApproved omitted since not updated here
+            } = req.body;
+
+            console.log('Received update request:', req.body);
+
+            const event: Event = {
+                event_id,
+                title,
+                description,
+                date,
+                location,
+                ticket_type,
+                price: Number(price),
+                image,
+                total_tickets: Number(total_tickets),
+                available_tickets: Number(available_tickets),
+                isApproved: false
+            };
+
+            const response = await eventService.updateEvent(event);
+            if ('error' in response) {
+                return res.status(400).json(response);
+            }
+            return res.status(200).json(response);
         } catch (error) {
-          console.error('Controller Error:', error);
-          return res.status(500).json({ error: 'Internal server error during update' });
+            console.error('Controller Error:', error);
+            return res.status(500).json({ error: 'Internal server error during update' });
         }
-      }
+    }
 
     async approveEvent(req: Request, res: Response) {
         try {
@@ -94,7 +96,7 @@ export class EventController {
             return res.status(500).json({ error: 'Error approving event' });
         }
     }
-    
+
 
     async deleteEvent(req: Request, res: Response) {
         try {
@@ -102,7 +104,7 @@ export class EventController {
             let response = await eventService.deleteEvent(event_id);
             return res.status(200).json(response);
         } catch (error) {
-            return res.json({
+            return res.status(404).json({
                 error: 'Error deleting event'
             });
         }
@@ -116,5 +118,5 @@ export class EventController {
             return res.status(500).json({ error: 'Error fetching number of events' });
         }
     }
-    
+
 }

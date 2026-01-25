@@ -1,0 +1,107 @@
+{
+  "meta": {
+    "project": "Plana Event Management System",
+    "date": "2026-01-21",
+    "prepared_by": "Software Development Manager"
+  },
+  "product_overview": "Plana is a comprehensive event management platform designed to provide users with seamless event discovery, booking, and management, while empowering admins to oversee events, users, and support issues with real-time insights.",
+  "core_goals": [
+    "Deliver an engaging and high-performance landing page using modern animation and smooth scrolling for first-time visitors.",
+    "Allow users to securely sign up, log in, and maintain authenticated sessions with role-based access control.",
+    "Provide users with an intuitive dashboard reflecting live event bookings and personal data.",
+    "Enable admins to manage events, view global metrics like revenue and user statistics, and handle user-reported issues effectively.",
+    "Facilitate smooth event booking workflows with real-time availability checking and transaction feedback.",
+    "Offer a support system that allows users to report issues and receive timely responses from admins.",
+    "Automate background services to handle periodic checks and trigger notifications without user intervention."
+  ],
+  "key_features": [
+    "Dynamic Landing Page leveraging GSAP and Lenis for enhanced user experience.",
+    "Authentication system including signup, login, and JWT-based session management with role differentiation.",
+    "Global Navigation Bar and Footer for consistent site navigation.",
+    "User Dashboard displaying live personal booking stats and events.",
+    "Admin Dashboard providing global insights, event management tools, and issue resolution interfaces.",
+    "Events Gallery for browsing and booking events.",
+    "Support page for users to report issues and track their support history.",
+    "Backend API securing data transactions, event bookings, and user management with encrypted passwords and JWT authentication.",
+    "Real-time data synchronization between frontend and backend ensuring live updates to dashboards and stats bars.",
+    "Background cron jobs for automated welcome messaging and system monitoring every 5 seconds."
+  ],
+  "user_flow_summary": [
+    "A new visitor lands on the homepage greeted by an animated and smooth-scrolling interface.",
+    "The visitor signs up for a new account via the Signup page; upon success, they log in and receive a JWT token stored in session context.",
+    "Upon login, users are directed to their respective dashboards based on their roles (User or Admin).",
+    "Users browse available events in the Events Gallery, select events to book, and complete bookings which update their dashboard in real-time.",
+    "Admins access the Admin Dashboard to view platform-wide metrics and perform event management tasks, including creation, approval, and deletion of events.",
+    "Users needing assistance visit the Support page to file issues; admins respond through the Issues Management tab within the Admin Dashboard.",
+    "Continuous background jobs monitor the system state, trigger notifications, and ensure data freshness without user intervention."
+  ],
+  "validation_criteria": [
+    "Landing Page components animate smoothly with GSAP and Lenis integration verified on multiple browsers.",
+    "Authentication workflows enforce secure signup/login with JWT properly stored and validated.",
+    "Dashboard data (both User and Admin) refresh dynamically to reflect current data without page reload.",
+    "Event booking checks availability accurately and updates the backend and dashboard in real-time.",
+    "Admin event actions (create, approve, delete) persist correctly in the database and trigger UI updates.",
+    "Support issue submissions are saved and admins can respond, with responses immediately visible to users.",
+    "Background services run every 5 seconds to handle new event and user checks and send notifications as designed.",
+    "Overall system security is confirmed by encryption of sensitive data and protected API routes via JWT middleware."
+  ],
+  "code_summary": {
+    "tech_stack": [
+      "JavaScript",
+      "React",
+      "Vite",
+      "CSS",
+      "GSAP",
+      "Lenis",
+      "Axios",
+      "React Router"
+    ],
+    "features": [
+      {
+        "name": "Authentication",
+        "description": "User login, signup, and authentication context management",
+        "files": [
+          "src/context/AuthContext.jsx",
+          "src/components/Login.jsx",
+          "src/components/Signup.jsx"
+        ]
+      },
+      {
+        "name": "Landing Page",
+        "description": "Main landing page with hero, services, stats, testimonials, and contact sections",
+        "files": [
+          "src/pages/LandingPage.jsx",
+          "src/components/Hero.jsx",
+          "src/components/Services.jsx",
+          "src/components/StatsBar.jsx",
+          "src/components/Testimonials.jsx",
+          "src/components/Contact.jsx"
+        ]
+      },
+      {
+        "name": "Navigation",
+        "description": "Global navigation bar and footer",
+        "files": [
+          "src/components/Navbar.jsx",
+          "src/components/Footer.jsx"
+        ]
+      },
+      {
+        "name": "Dashboards",
+        "description": "User and Admin dashboards",
+        "files": [
+          "src/pages/Dashboard.jsx",
+          "src/pages/AdminDashboard.jsx"
+        ]
+      },
+      {
+        "name": "Features",
+        "description": "Additional pages like Events Gallery and Support",
+        "files": [
+          "src/pages/EventsGallery.jsx",
+          "src/pages/Support.jsx"
+        ]
+      }
+    ]
+  }
+}

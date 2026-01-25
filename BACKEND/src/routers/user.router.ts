@@ -18,5 +18,6 @@ user_router.put('/deactivate/:user_id', controller.deactivateUser);
 user_router.put('/activate/:user_id', controller.activateUser);
 user_router.get('/user/countUsers', controller.getNumberOfUsers);
 user_router.get('/user/countUserRole', controller.getUserRolesCount);
+user_router.delete('/:user_id', controller.deleteUser);
 
 export default user_router;

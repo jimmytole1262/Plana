@@ -1,5 +1,5 @@
 export interface Event {
-    event_id: string; // Add this property
+    event_id: string;
     title: string;
     description: string;
     date: string;
@@ -10,4 +10,5 @@ export interface Event {
     total_tickets: number;
     available_tickets: number;
     isApproved: boolean;
+    [key: string]: any; // Allow extra fields from test payloads
 }

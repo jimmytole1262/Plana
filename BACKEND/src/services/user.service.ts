@@ -18,8 +18,13 @@ export class userService {
     ).recordset;
     console.log(emailExist[0]);
     if (!lodash.isEmpty(emailExist)) {
+      const { password, ...userWithoutPassword } = emailExist[0];
       return {
-        error: "Email already exists",
+        ...userWithoutPassword,
+        message: "User already registered, returning details",
+        user_id: emailExist[0].user_id,
+        userId: emailExist[0].user_id,
+        id: emailExist[0].user_id
       };
     }
     console.log("service", user);
@@ -37,9 +42,19 @@ export class userService {
     // console.log(result);
 
     if (result[0] == 1) {
+      const { password, ...userWithoutPassword } = user;
       return {
+        ...userWithoutPassword,
         message: "User registered successfully",
         user_id,
+        userId: user_id,
+        id: user_id,
+        user: {
+          ...userWithoutPassword,
+          user_id,
+          userId: user_id,
+          id: user_id
+        }
       };
     } else {
       return {
@@ -48,32 +63,32 @@ export class userService {
     }
   }
 
-  async fetchAllUsers(){
+  async fetchAllUsers() {
 
     let pool = await mssql.connect(sqlconfig)
     let result = (await pool.query(`SELECT * FROM Users WHERE role IN ('user', 'manager')`)).recordset
 
-    if(result.length == 0){
-      return{
-        message: "No users found"
+    if (result.length == 0) {
+      return {
+        users: []
       }
-    }else{
-      return{
+    } else {
+      return {
         users: result
       }
     }
   }
 
-  async fetchUsers(){
+  async fetchUsers() {
     let pool = await mssql.connect(sqlconfig)
     let result = (await pool.query(`SELECT * FROM Users WHERE role = 'user'`)).recordset
 
-    if(result.length == 0){
-      return{
-        message: "No users found"
+    if (result.length == 0) {
+      return {
+        users: []
       }
-    }else{
-      return{
+    } else {
+      return {
         users: result
       }
     }
@@ -166,118 +181,136 @@ export class userService {
     }
   }
 
-  async updateUserCredentials(user: UserDetails){
+  async updateUserCredentials(user: UserDetails) {
 
     let pool = await mssql.connect(sqlconfig)
     let user_password = bcrypt.hashSync(user.password, 6);
 
-    let userExists = await(await pool.request().query(`SELECT * FROM Users WHERE user_id ='${user.user_id}'`)).recordset
+    let userExists = await (await pool.request().query(`SELECT * FROM Users WHERE user_id ='${user.user_id}'`)).recordset
 
     // console.log(userExists);.
 
-    if(lodash.isEmpty(userExists)){
-        return{
-            error: 'user not found'
-        }
-    }else{
-        let result = (await pool.request()
-    .input('user_id', userExists[0].user_id)
-    .input('username', user.username)
-    .input('email', user.email)
-    .input('password',user_password)
-    .execute('updateUserCredentials')).rowsAffected
-        console.log(result);
-        
-    if(result[0] < 1){
-        return{
-            error: "Unable to update user details"
-        }
-    }else{
-        return{
-            message: "User details updated successfully"
-        }
-    }
-    }
-    
-}
+    if (lodash.isEmpty(userExists)) {
+      return {
+        error: 'user not found'
+      }
+    } else {
+      let result = (await pool.request()
+        .input('user_id', userExists[0].user_id)
+        .input('username', user.username)
+        .input('email', user.email)
+        .input('password', user_password)
+        .execute('updateUserCredentials')).rowsAffected
+      console.log(result);
 
-async deactivateUser(user_id: string) {
-  try {
-    let pool = await mssql.connect(sqlconfig);
-    let userExists = (await pool.request()
+      if (result[0] < 1) {
+        return {
+          error: "Unable to update user details"
+        }
+      } else {
+        return {
+          message: "User details updated successfully"
+        }
+      }
+    }
+
+  }
+
+  async deactivateUser(user_id: string) {
+    try {
+      let pool = await mssql.connect(sqlconfig);
+      let userExists = (await pool.request()
         .input('user_id', mssql.VarChar, user_id)
         .query('SELECT * FROM Users WHERE user_id = @user_id AND isActive = 1')).recordset;
 
-    if (userExists.length === 0) {
+      if (userExists.length === 0) {
+        return {
+          message: 'User not found or already deactivated'
+        };
+      }
+
+      await pool.request()
+        .input('user_id', mssql.VarChar, user_id)
+        .execute('deactivateUser');
+
       return {
-        message: 'User not found or already deactivated'
+        message: 'User deactivated successfully'
       };
+    } catch (error) {
+      console.error('SQL error', error);
+      throw error;
     }
-
-    await pool.request()
-      .input('user_id', mssql.VarChar, user_id)
-      .execute('deactivateUser');
-
-    return {
-      message: 'User deactivated successfully'
-    };
-  } catch (error) {
-    console.error('SQL error', error);
-    throw error;
   }
-}
 
-async activateUser(user_id: string) {
-  try {
-    let pool = await mssql.connect(sqlconfig);
-    let userExists = (await pool.request()
+  async activateUser(user_id: string) {
+    try {
+      let pool = await mssql.connect(sqlconfig);
+      let userExists = (await pool.request()
         .input('user_id', mssql.VarChar, user_id)
         .query('SELECT * FROM Users WHERE user_id = @user_id AND isActive = 0')).recordset;
 
-    if (userExists.length === 0) {
+      if (userExists.length === 0) {
+        return {
+          message: 'User not found or already active'
+        };
+      }
+
+      await pool.request()
+        .input('user_id', mssql.VarChar, user_id)
+        .execute('activateUser');
+
       return {
-        message: 'User not found or already active'
+        message: 'User activated successfully'
       };
+    } catch (error) {
+      console.error('SQL error', error);
+      throw error;
     }
-
-    await pool.request()
-      .input('user_id', mssql.VarChar, user_id)
-      .execute('activateUser');
-
-    return {
-      message: 'User activated successfully'
-    };
-  } catch (error) {
-    console.error('SQL error', error);
-    throw error;
   }
-}
 
-async getNumberOfUsers() {
-  try {
+  async getNumberOfUsers() {
+    try {
       let pool = await mssql.connect(sqlconfig);
       let result = await pool.request().execute('getNumberOfUsers');
       return { numberOfUsers: result.recordset[0].numberOfUsers };
-  } catch (error) {
+    } catch (error) {
       console.error('SQL error', error);
       throw error;
+    }
   }
-}
 
-async getUserRolesCount() {
-  try {
+  async getUserRolesCount() {
+    try {
       let pool = await mssql.connect(sqlconfig);
       let result = await pool.request().execute('getUserRolesCount');
       let roleCounts = result.recordset.reduce((acc, row) => {
-          acc[`User Role: ${row.userRole}`] = row.roleCount;
-          return acc;
+        acc[`User Role: ${row.userRole}`] = row.roleCount;
+        return acc;
       }, {});
       return roleCounts;
-  } catch (error) {
+    } catch (error) {
       console.error('SQL error', error);
       throw error;
+    }
   }
-}
+
+  async deleteUser(user_id: string) {
+    try {
+      let pool = await mssql.connect(sqlconfig);
+      let response = await pool.request()
+        .input('user_id', mssql.VarChar, user_id)
+        .query(`DELETE FROM Users WHERE user_id = @user_id`);
+
+      if (response.rowsAffected[0] > 0) {
+        return { message: "User deleted successfully" };
+      } else {
+        return { error: "User not found" };
+      }
+    } catch (error) {
+      console.error('SQL error', error);
+      throw error;
+    }
+  }
 
 
 

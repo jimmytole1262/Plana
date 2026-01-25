@@ -1,0 +1,19 @@
+{
+  "status": "commited",
+  "type": "backend",
+  "scope": "codebase",
+  "localEndpoint": "http://localhost:5500",
+  "backendAuthType": "basic token",
+  "backendUsername": "Jimmy Tole",
+  "backendPassword": "Jimmytole@2030",
+  "executionArgs": {
+    "projectName": "BACKEND",
+    "projectPath": "d:\\pil\\Plana\\BACKEND",
+    "testIds": [],
+    "additionalInstruction": "Fixed schema mismatches: now returning 'id' alongside 'user_id'/'event_id', and returning empty arrays for lists instead of error messages. Rerun all tests.",
+    "envs": {
+      "API_KEY": "sk-user-oqsf_hxli5pEog0J_DDcQKBMwW9-EzvxoB9MHfRU8qrPZ1skzWI8GTwb9aya6R0xpPEoSKu8Xt4IPAk6_8XbDM5DDm8fwHACLMYtW7F4E2UWUhMB6ro0KvPvb85J5pQ30c8"
+    }
+  },
+  "proxy": "http://b9325605-a9a3-439f-b4cf-9ef243481313:iF5YDwf0B4daEIA4QCvXButkM9rbkU96@tun.testsprite.com:8080"
+}

@@ -1,0 +1,135 @@
+.support-wrapper {
+    background: #0a0a0a;
+    color: #fff;
+    min-height: 100vh;
+}
+
+.support-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 140px 20px 80px;
+}
+
+.support-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.support-header h1 {
+    font-size: 3rem;
+    font-weight: 800;
+    margin-bottom: 10px;
+}
+
+.support-header p {
+    color: #888;
+}
+
+.support-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+}
+
+.support-card-form {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 40px;
+    border-radius: 24px;
+}
+
+.input-group {
+    margin-bottom: 25px;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 0.9rem;
+    color: #888;
+}
+
+.input-group input,
+.input-group textarea {
+    width: 100%;
+    background: #151515;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: #fff;
+    padding: 15px;
+    border-radius: 12px;
+    outline: none;
+    font-family: inherit;
+}
+
+.report-btn {
+    width: 100%;
+    background: #fff;
+    color: #000;
+    border: none;
+    padding: 15px;
+    border-radius: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+}
+
+.report-btn:hover {
+    opacity: 0.9;
+}
+
+.history-section h2,
+.report-section h2 {
+    margin-bottom: 30px;
+}
+
+.issues-list {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.issue-item {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 25px;
+    border-radius: 15px;
+}
+
+.issue-main h3 {
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+}
+
+.issue-main p {
+    color: #a2a2a2;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin-bottom: 10px;
+}
+
+.issue-date {
+    font-size: 0.8rem;
+    color: #555;
+}
+
+.admin-response {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    font-size: 0.9rem;
+    color: #00ff7f;
+}
+
+.empty-history {
+    text-align: center;
+    padding: 60px;
+    color: #555;
+    border: 1px dashed rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+}
+
+@media (max-width: 992px) {
+    .support-grid {
+        grid-template-columns: 1fr;
+    }
+}

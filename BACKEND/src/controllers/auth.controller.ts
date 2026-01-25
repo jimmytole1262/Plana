@@ -12,10 +12,10 @@ export const loginUser = async (req: Request, res: Response) => {
 
         const result = await authServiceInstance.login(logins);
 
-        if (!result.error) {
+        if (!result.error && result.token) {
             res.status(200).json(result);
         } else {
-            res.status(400).json(result);
+            res.status(401).json(result);
         }
     } catch (error) {
         res.status(500).json({ message: 'Server error', error });

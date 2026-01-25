@@ -1,0 +1,136 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+  rel="stylesheet">
+<link
+  href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap"
+  rel="stylesheet">
+
+<!-- Three.js Background -->
+<app-three-scene></app-three-scene>
+
+<!-- Glassmorphism Navbar -->
+<app-navbar></app-navbar>
+
+<div class="main">
+  <!-- Hero Section -->
+  <section class="hero" #heroSection>
+    <div class="hero-content" #heroContent>
+      <h1 class="hero-title">UNFORGETTABLE EVENTS</h1>
+      <p class="hero-subtitle">Transform your ideas into unforgettable experiences</p>
+      <p class="tagline">Join our vibrant community and explore a world of events</p>
+      <div class="cta-buttons">
+        <button class="btn btn-primary" routerLink="login">Sign In</button>
+        <button class="btn btn-secondary" routerLink="register">Sign Up</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Showcase Section -->
+  <section class="showcase-section" id="showcase">
+    <div *ngIf="loginMessage" class="login-message">{{ loginMessage }}</div>
+    <div class="section-header">
+      <h2 class="section-title">Featured Events</h2>
+      <p class="section-subtitle">Discover amazing events happening around you</p>
+    </div>
+
+    <div class="events-grid">
+      <div class="event-card" *ngFor="let event of events" #eventCard>
+        <div class="event-image-wrapper">
+          <img [src]="event.image" [alt]="event.title">
+          <div class="event-overlay"></div>
+        </div>
+        <div class="event-details">
+          <h3 class="event-title">{{ event.title }}</h3>
+          <p class="event-description">{{ event.description }}</p>
+          <div class="event-meta">
+            <div class="meta-item">
+              <span class="meta-label">Ticket Type</span>
+              <span class="meta-value">{{ event.ticket_type }}</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">Date</span>
+              <span class="meta-value">{{ event.date | date }}</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">Price</span>
+              <span class="meta-value">Ksh {{ event.price }}</span>
+            </div>
+            <div class="meta-item">
+              <span class="meta-label">Available</span>
+              <span class="meta-value">{{ event.available_tickets }} tickets</span>
+            </div>
+          </div>
+          <button class="btn btn-book" (click)="bookEvent(event.event_id)">Book Now</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Experience Section -->
+  <section class="experience-section" id="experience">
+    <div class="section-header">
+      <h2 class="section-title">Why Book With Us?</h2>
+      <p class="section-subtitle">Experience the difference with PLANA</p>
+    </div>
+
+    <div class="experience-grid">
+      <div class="experience-item">
+        <div class="experience-icon">✨</div>
+        <h3>Curated Events</h3>
+        <p>Hand-picked events from trusted organizers ensuring quality experiences every time</p>
+      </div>
+      <div class="experience-item">
+        <div class="experience-icon">🎫</div>
+        <h3>Secure Booking</h3>
+        <p>Safe and encrypted transactions with instant ticket confirmation to your email</p>
+      </div>
+      <div class="experience-item">
+        <div class="experience-icon">💬</div>
+        <h3>Community First</h3>
+        <p>Join a vibrant community of event-goers and share unforgettable moments</p>
+      </div>
+      <div class="experience-item">
+        <div class="experience-icon">🎉</div>
+        <h3>Easy Management</h3>
+        <p>Track all your bookings and event history in one convenient dashboard</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Community Feedback Section -->
+  <section class="community-section" id="community">
+    <div class="section-header">
+      <h2 class="section-title">Community Feedback</h2>
+      <p class="section-subtitle">What our community is saying</p>
+    </div>
+
+    <div class="feedback-grid">
+      <div class="feedback-card" *ngFor="let issue of issues">
+        <h3 class="feedback-title">{{ issue.title }}</h3>
+        <p class="feedback-description">{{ issue.description }}</p>
+        <span class="feedback-date">Posted: {{ issue.created_at | date: 'dd/MM/yyyy' }}</span>
+        <div class="responses" *ngIf="issue.responses && issue.responses.length > 0">
+          <h4 class="response-header">Admin Response:</h4>
+          <div *ngFor="let response of issue.responses" class="response-item">
+            <p class="response-text">{{ response.response_text }}</p>
+            <span class="response-date">Responded: {{ response.created_at | date: 'dd/MM/yyyy' }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="feedback-cta">
+      <button class="btn btn-view-more" routerLink="/issues">View All Feedback</button>
+    </div>
+  </section>
+
+  <!-- Final CTA Section -->
+  <section class="cta-section" id="cta">
+    <div class="cta-content">
+      <h2 class="cta-title">Ready to Get Started?</h2>
+      <p class="cta-subtitle">Join thousands of event-goers and start booking today</p>
+      <button class="btn btn-large" routerLink="register">Create Your Account</button>
+    </div>
+  </section>
+</div>

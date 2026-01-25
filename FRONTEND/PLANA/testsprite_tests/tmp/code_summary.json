@@ -1,0 +1,59 @@
+{
+    "tech_stack": [
+        "JavaScript",
+        "React",
+        "Vite",
+        "CSS",
+        "Node.js",
+        "Express"
+    ],
+    "features": [
+        {
+            "name": "Authentication",
+            "description": "User login and registration functionality using JWT.",
+            "files": [
+                "src/components/Login.jsx",
+                "src/components/Signup.jsx",
+                "src/context/AuthContext.jsx",
+                "src/services/api.js"
+            ]
+        },
+        {
+            "name": "Dashboard",
+            "description": "User and Admin dashboards for managing bookings and viewing metrics.",
+            "files": [
+                "src/pages/Dashboard.jsx",
+                "src/pages/AdminDashboard.jsx",
+                "src/components/StatsBar.jsx"
+            ]
+        },
+        {
+            "name": "Events",
+            "description": "Event gallery and management.",
+            "files": [
+                "src/pages/EventsGallery.jsx",
+                "src/services/api.js"
+            ]
+        },
+        {
+            "name": "Support",
+            "description": "Support issue submission and tracking.",
+            "files": [
+                "src/pages/Support.jsx",
+                "src/services/api.js"
+            ]
+        },
+        {
+            "name": "Landing Page",
+            "description": "Main landing page with hero, services, and testimonials.",
+            "files": [
+                "src/pages/LandingPage.jsx",
+                "src/components/Hero.jsx",
+                "src/components/Services.jsx",
+                "src/components/Testimonials.jsx",
+                "src/components/Navbar.jsx",
+                "src/components/Footer.jsx"
+            ]
+        }
+    ]
+}

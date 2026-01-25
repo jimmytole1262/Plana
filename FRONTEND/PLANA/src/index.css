@@ -1,0 +1,357 @@
+/* ===================================
+   DARK LUXURY DESIGN SYSTEM (Base)
+   =================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Manrope:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:root {
+  /* DARK LUXURY COLOR PALETTE */
+  --primary-gold: #d4af37;
+  --gold-light: #f4d483;
+  --gold-dark: #b8962b;
+
+  --bg-dark: #0f0518;
+  --bg-purple-dark: #1a0b2e;
+  --bg-purple: #2d1b4e;
+
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.1);
+
+  --neon-purple: #b794f6;
+  --neon-pink: #f472b6;
+  --neon-gold: #fbbf24;
+
+  --text-white: #ffffff;
+  --text-light: rgba(255, 255, 255, 0.87);
+  --text-muted: rgba(255, 255, 255, 0.6);
+
+  /* TYPOGRAPHY */
+  --font-heading: 'Playfair Display', serif;
+  --font-body: 'Manrope', sans-serif;
+  --font-poppins: 'Poppins', sans-serif;
+
+  /* SPACING */
+  --section-padding: 120px;
+  --container-padding: 80px;
+
+  /* EFFECTS */
+  --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  --blur-glass: 10px;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+  font-size: 10px; /* From login page to keep rem consistent there */
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-body);
+  background: var(--bg-dark);
+  color: var(--text-light);
+  line-height: 1.6;
+  overflow-x: hidden;
+  min-height: 100vh;
+
+  /* Premium Background Gradient */
+  background: linear-gradient(135deg,
+      var(--bg-dark) 0%,
+      var(--bg-purple-dark) 50%,
+      var(--bg-dark) 100%);
+  background-attachment: fixed;
+
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  width: 100%;
+  min-height: 100vh;
+}
+
+/* ===================================
+   TYPOGRAPHY STYLES
+   =================================== */
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--text-white);
+  letter-spacing: -0.02em;
+}
+
+h1 {
+  font-size: clamp(3rem, 8vw, 6rem);
+  background: linear-gradient(135deg, var(--primary-gold), var(--gold-light));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-shadow: 0 0 40px rgba(212, 175, 55, 0.3);
+}
+
+h2 {
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+}
+
+p {
+  font-family: var(--font-body);
+  font-size: 1.6rem; /* Standardizing for 10px base */
+  color: var(--text-muted);
+  line-height: 1.8;
+}
+
+/* ===================================
+   LOGIN SPECIFIC STYLES (Clean/White)
+   =================================== */
+
+.login-main {
+  display: flex;
+  background-color: white; /* Ensure white background for login */
+  color: black;
+  min-height: 100vh;
+}
+
+.login-left {
+  flex-grow: 1;
+  height: 100vh;
+  background-color: #E9E9E9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-left img {
+  width: 400px;
+}
+
+.login-right {
+  height: 100vh;
+  flex-grow: 1;
+  background-color: white;
+}
+
+.login-right-container {
+  height: 100%;
+  width: 80%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.login-right form {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-logo {
+  align-self: center;
+  padding-top: 50px;
+}
+
+.login-center {
+  margin: auto 0;
+  text-align: center;
+}
+
+.login-logo img {
+  width: 50px;
+}
+
+.login-center h2 {
+  font-family: var(--font-poppins);
+  font-size: 3.5rem;
+  color: black;
+}
+
+.login-center p {
+  font-family: var(--font-poppins);
+  font-weight: 400;
+  font-size: 2rem;
+  margin-bottom: 40px;
+  color: #666;
+}
+
+form input[type='email'],
+form input[type='password'],
+form input[type='text'] {
+  width: 100%;
+  padding: 16px;
+  margin-bottom: 16px;
+  border: 0px;
+  border-bottom: 1px solid black;
+  outline: none;
+  box-sizing: border-box;
+  font-family: var(--font-poppins);
+  font-size: 1.6rem;
+}
+
+.pass-input-div {
+  position: relative;
+}
+
+.pass-input-div svg {
+  font-size: 20px;
+  position: absolute;
+  right: 10px;
+  bottom: 35px;
+  cursor: pointer;
+  outline: none;
+}
+
+form button[type='button'], 
+form button[type='submit'] {
+  width: 100%;
+  padding: 16px;
+  border: none;
+  border-radius: 30px;
+  font-size: 16px;
+  cursor: pointer;
+  font-weight: 600;
+  font-family: var(--font-poppins);
+}
+
+.login-center-options {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.remember-div {
+  display:flex;
+  align-items: center;
+  column-gap: 5px;
+}
+
+.remember-div label {
+  font-size: 1.3rem;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 2px;
+  font-family: var(--font-poppins);
+}
+
+.forgot-pass-link {
+  text-decoration: none;
+  font-size: 1.3rem;
+  font-family: var(--font-poppins);
+}
+
+.forgot-pass-link:hover {
+  text-decoration: underline;
+}
+
+.login-center-buttons {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  row-gap: 10px;
+}
+
+.login-center-buttons button:nth-child(1) {
+  background-color: black;
+  color: white;
+  border: 3px solid black;
+}
+
+.login-center-buttons button:nth-child(1):hover {
+  color: #333;
+  background-color: white;
+}
+
+.login-center-buttons button:nth-child(2) {
+  background-color: #F0F0F0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 10px;
+}
+
+.login-center-buttons button:nth-child(2) img {
+  width: 30px;
+}
+
+.login-center-buttons button:nth-child(2):hover {
+  background-color: #c4c4c457;
+}
+
+.login-bottom-p {
+  text-align: center;
+  font-size: 1.5rem;
+  padding-bottom: 40px;
+  font-family: var(--font-poppins);
+}
+
+.login-bottom-p a {
+  text-decoration: none;
+  font-weight: 600;
+  color: black;
+}
+
+.login-bottom-p a:hover {
+  text-decoration: underline;
+}
+
+/* ===================================
+   GLASSMORPHISM UTILITIES
+   =================================== */
+
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--blur-glass));
+  -webkit-backdrop-filter: blur(var(--blur-glass));
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  transition: var(--transition-smooth);
+}
+
+.glass-card:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--primary-gold);
+  transform: translateY(-10px);
+  box-shadow:
+    0 20px 60px rgba(212, 175, 55, 0.2),
+    0 0 40px rgba(183, 148, 246, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* ===================================
+   BUTTONS (Landing Page)
+   =================================== */
+
+.btn-primary {
+  padding: 18px 48px;
+  font-family: var(--font-body);
+  font-size: 1.1rem;
+  font-weight: 600;
+  background: linear-gradient(135deg, var(--primary-gold), var(--gold-light));
+  color: var(--bg-dark);
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
+}
+
+/* ===================================
+   RESPONSIVE
+   =================================== */
+
+@media (max-width: 768px) {
+  :root {
+    --section-padding: 60px;
+    --container-padding: 20px;
+  }
+}

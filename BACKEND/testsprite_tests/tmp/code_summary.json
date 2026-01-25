@@ -1,0 +1,87 @@
+{
+  "tech_stack": [
+    "TypeScript",
+    "Express",
+    "MSSQL",
+    "Node.js"
+  ],
+  "features": [
+    {
+      "name": "User Management",
+      "description": "Handles user registration, login, and profile updates.",
+      "files": [
+        "src/routers/user.router.ts",
+        "src/controllers/user.controller.ts",
+        "src/controllers/auth.controller.ts"
+      ],
+      "api_doc": {
+        "openapi": "3.0.0",
+        "info": {
+          "title": "User API",
+          "version": "1.0.0"
+        },
+        "paths": {
+          "/users/register": {
+            "post": {
+              "summary": "Register a new user"
+            }
+          },
+          "/users/login": {
+            "post": {
+              "summary": "User login"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Event Management",
+      "description": "Handles creation, approval, and management of events.",
+      "files": [
+        "src/routers/event.router.ts",
+        "src/controllers/event.controller.ts"
+      ],
+      "api_doc": {
+        "openapi": "3.0.0",
+        "info": {
+          "title": "Event API",
+          "version": "1.0.0"
+        },
+        "paths": {
+          "/events/createEvent": {
+            "post": {
+              "summary": "Create an event"
+            }
+          },
+          "/events/viewAllEvents": {
+            "get": {
+              "summary": "View all events"
+            }
+          }
+        }
+      }
+    },
+    {
+      "name": "Booking Management",
+      "description": "Handles event bookings and revenue tracking.",
+      "files": [
+        "src/routers/booking.router.ts",
+        "src/controllers/booking.controller.ts"
+      ],
+      "api_doc": {
+        "openapi": "3.0.0",
+        "info": {
+          "title": "Booking API",
+          "version": "1.0.0"
+        },
+        "paths": {
+          "/bookings/createBooking": {
+            "post": {
+              "summary": "Book an event"
+            }
+          }
+        }
+      }
+    }
+  ]
+}

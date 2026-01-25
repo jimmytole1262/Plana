@@ -1,0 +1,42 @@
+# Plana Project: Start-to-Finish Workflow Documentation
+
+This document explains how the Plana Event Management system works from the perspective of both users and the underlying technology stack.
+
+## 1. The Entry Point: Frontend Interaction (React & Vite)
+The process begins when a user visits the platform.
+- **Landing Page**: Using GSAP and Lenis, the user is greeted with a professional, high-end visual experience.
+- **Authentication**: New users sign up via the Signup page. The frontend sends their data to the Backend API.
+- **Session Management**: Once logged in, a JWT (JSON Web Token) is stored, and the user's role (User or Admin) determines which sections of the site they can access.
+
+## 2. The Core Logic: Backend Processing (Express & TypeScript)
+The backend acts as the bridge between the user and the data.
+- **API Services**: It handles requests for user registration, login, event fetching, and booking creation.
+- **Security**: Passwords are encrypted using Bcrypt, and routes are protected by JWT authentication middleware.
+- **Database Interaction**: The backend uses MSSQL to execute procedures and queries for everything from tracking revenue to counting active users.
+
+## 3. The Data Layer: SQL Server Database
+All persistent information is stored here.
+- **Tables**: Users, Events, Bookings, and Support Issues.
+- **Dynamic Stats**: Every figure seen on the dashboard (like total revenue or number of active events) is a real-time result of a database query, ensuring total accuracy.
+
+## 4. Automation: Background Services (Cron Jobs)
+Behind the scenes, the `bgservices` run automatically.
+- **Periodic Checks**: Every 5 seconds, a cron job checks the database for new events or users.
+- **Notifications**: It automatically triggers services like `welcomeUser` to send welcome messages or alerts without the user having to wait.
+
+## 5. Feature Workflows
+### A. The Booking Journey
+1. User finds an event in the **Gallery**.
+2. User clicks "Book Now" -> API request sent.
+3. Backend checks ticket availability -> Updates DB -> Returns success.
+4. User Dashboard immediately reflects the new booking with live stats.
+
+### B. Admin Management (Executive Console)
+1. Admins access a high-level dashboard with global stats (Revenue, Total Users).
+2. They can create new events via a modal form or approve/delete existing ones.
+3. They can view user-reported issues and provide direct feedback via the **Issues Management** tab.
+
+### C. Support & Feedback
+1. Users report issues through the **Support** page.
+2. The report is saved to the `Issues` table.
+3. Admins reply, and the response is instantly visible in the user's support history.

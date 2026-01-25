@@ -4,7 +4,7 @@ Content-Type: application/json
 
 {
     "username": "admin",
-    "email": "admintim@example.com",
+    "email": "adminjim@example.com",
     "password": "adminpass123"
 }
 
@@ -39,7 +39,7 @@ PUT http://localhost:5500/users/switch-role
 Content-Type: application/json
 
 {
-    "user_id":"dc14ba01-77b1-4729-9a46-1cf33213f3a6"
+    "user_id":"b7f220e8-d77a-43ad-8660-6be13cc20aba"
 }
 
 

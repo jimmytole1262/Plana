@@ -1,0 +1,15 @@
+src/config/sqlconfig.ts(1,20): error TS2307: Cannot find module 'dotenv' or its corresponding type declarations.
+src/helpers/emailHelpers.ts(1,24): error TS2307: Cannot find module 'nodemailer' or its corresponding type declarations.
+src/helpers/emailHelpers.ts(2,20): error TS2307: Cannot find module 'dotenv' or its corresponding type declarations.
+src/server.ts(1,21): error TS2307: Cannot find module 'express' or its corresponding type declarations.
+src/server.ts(2,18): error TS2307: Cannot find module 'node-cron' or its corresponding type declarations.
+src/server.ts(3,20): error TS2307: Cannot find module 'dotenv' or its corresponding type declarations.
+src/server.ts(22,14): error TS2580: Cannot find name 'process'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node`.
+src/services/welcomeUser.ts(1,19): error TS2307: Cannot find module 'mssql' or its corresponding type declarations.
+src/services/welcomeUser.ts(2,20): error TS2307: Cannot find module 'dotenv' or its corresponding type declarations.
+src/services/welcomeUser.ts(3,18): error TS2307: Cannot find module 'path' or its corresponding type declarations.
+src/services/welcomeUser.ts(4,17): error TS2307: Cannot find module 'ejs' or its corresponding type declarations.
+src/services/welcomeUser.ts(19,43): error TS2304: Cannot find name '__dirname'.
+src/services/welcomeUser.ts(21,67): error TS7006: Parameter 'error' implicitly has an 'any' type.
+src/services/welcomeUser.ts(21,74): error TS7006: Parameter 'data' implicitly has an 'any' type.
+src/services/welcomeUser.ts(24,23): error TS2580: Cannot find name 'process'. Do you need to install type definitions for node? Try `npm i --save-dev @types/node`.

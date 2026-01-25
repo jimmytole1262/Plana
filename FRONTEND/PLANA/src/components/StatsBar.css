@@ -1,0 +1,181 @@
+/* ===================================
+   STATS BAR SECTION
+   =================================== */
+
+.stats-section {
+    background: linear-gradient(135deg,
+            rgba(212, 175, 55, 0.1) 0%,
+            rgba(183, 148, 246, 0.1) 100%);
+    padding: 100px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.stats-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg,
+            transparent,
+            var(--primary-gold),
+            transparent);
+}
+
+.stats-section::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg,
+            transparent,
+            var(--neon-purple),
+            transparent);
+}
+
+/* ===================================
+   STATS GRID
+   =================================== */
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 60px;
+    text-align: center;
+}
+
+.stat-item {
+    position: relative;
+    padding: 30px 20px;
+    transition: var(--transition-smooth);
+}
+
+.stat-item::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 100%;
+    background: rgba(212, 175, 55, 0.05);
+    border-radius: 20px;
+    transition: width 0.4s ease;
+    z-index: -1;
+}
+
+.stat-item:hover::before {
+    width: 100%;
+}
+
+/* ===================================
+   STAT NUMBER
+   =================================== */
+
+.stat-number {
+    font-family: var(--font-heading);
+    font-size: clamp(3rem, 6vw, 5rem);
+    font-weight: 800;
+    background: linear-gradient(135deg, var(--primary-gold), var(--gold-light));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+    margin-bottom: 15px;
+    filter: drop-shadow(0 5px 20px rgba(212, 175, 55, 0.3));
+}
+
+/* ===================================
+   STAT LABEL
+   =================================== */
+
+.stat-label {
+    font-family: var(--font-body);
+    font-size: 1.1rem;
+    color: var(--text-light);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 20px;
+}
+
+/* ===================================
+   STAT BAR DECORATION
+   =================================== */
+
+.stat-bar {
+    width: 80px;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary-gold), var(--neon-purple));
+    margin: 0 auto;
+    border-radius: 2px;
+    position: relative;
+    overflow: hidden;
+}
+
+.stat-bar::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg,
+            transparent,
+            rgba(255, 255, 255, 0.6),
+            transparent);
+    animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+    0% {
+        left: -100%;
+    }
+
+    100% {
+        left: 100%;
+    }
+}
+
+/* ===================================
+   HOVER EFFECTS
+   =================================== */
+
+.stat-item:hover .stat-number {
+    transform: scale(1.1);
+    filter: drop-shadow(0 10px 40px rgba(212, 175, 55, 0.6));
+    transition: var(--transition-smooth);
+}
+
+.stat-item:hover .stat-bar {
+    width: 120px;
+    transition: width 0.4s ease;
+}
+
+/* ===================================
+   RESPONSIVE DESIGN
+   =================================== */
+
+@media (max-width: 768px) {
+    .stats-section {
+        padding: 60px 0;
+    }
+
+    .stats-grid {
+        gap: 40px;
+    }
+
+    .stat-item {
+        padding: 20px 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+    }
+}

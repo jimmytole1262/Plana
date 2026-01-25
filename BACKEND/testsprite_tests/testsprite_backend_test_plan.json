@@ -1,0 +1,27 @@
+[
+  {
+    "id": "TC001",
+    "title": "user registration functionality",
+    "description": "Test the user registration endpoint to ensure new users can register successfully with valid data, and that passwords are encrypted and stored securely."
+  },
+  {
+    "id": "TC002",
+    "title": "user login authentication",
+    "description": "Verify the user login endpoint authenticates users correctly using valid credentials and returns a valid JWT token for session management."
+  },
+  {
+    "id": "TC003",
+    "title": "event creation by admin",
+    "description": "Test the event creation endpoint to confirm that administrators can create new events with all required details and that the event is stored correctly."
+  },
+  {
+    "id": "TC004",
+    "title": "view all events listing",
+    "description": "Verify the endpoint for viewing all events returns a complete and accurate list of events available for users to browse."
+  },
+  {
+    "id": "TC005",
+    "title": "event booking process",
+    "description": "Test the booking creation endpoint to ensure users can book events successfully, with real-time ticket availability checks and booking confirmation."
+  }
+]

@@ -1,0 +1,15 @@
+{
+  "status": "commited",
+  "type": "frontend",
+  "scope": "codebase",
+  "localEndpoint": "http://localhost:5173/D:\\pil\\Plana\\FRONTEND",
+  "executionArgs": {
+    "projectName": "PLANA",
+    "projectPath": "d:/pil/Plana/FRONTEND/PLANA",
+    "testIds": [],
+    "additionalInstruction": "Run all tests, especially focusing on TC002 (Signup) and TC003 (Login).",
+    "envs": {
+      "API_KEY": "sk-user-oqsf_hxli5pEog0J_DDcQKBMwW9-EzvxoB9MHfRU8qrPZ1skzWI8GTwb9aya6R0xpPEoSKu8Xt4IPAk6_8XbDM5DDm8fwHACLMYtW7F4E2UWUhMB6ro0KvPvb85J5pQ30c8"
+    }
+  }
+}

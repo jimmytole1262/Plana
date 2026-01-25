@@ -9,32 +9,37 @@ export class UserController {
     try {
       let result = await UserService.registerUser(req.body);
 
+      if (result.error) {
+        console.log("Registration Error:", result.error);
+        return res.status(400).json(result);
+      }
+
       return res.status(201).json(result);
     } catch (error) {
-      return res.json({
-        error
+      return res.status(500).json({
+        error: error instanceof Error ? error.message : "Internal Server Error"
       });
     }
   }
 
-  async getAllUsers(req: Request, res: Response){
-    try{
+  async getAllUsers(req: Request, res: Response) {
+    try {
       let result = await UserService.fetchAllUsers()
 
       return res.status(200).json(result)
-    }catch (error) {
-      return res.json({
-        error
+    } catch (error) {
+      return res.status(500).json({
+        error: error instanceof Error ? error.message : "Internal Server Error"
       });
     }
   }
 
-  async getUsers(req: Request, res: Response){
+  async getUsers(req: Request, res: Response) {
     try {
       let result = await UserService.fetchUsers()
 
       return res.status(200).json(result)
-      
+
     } catch (error) {
       return res.json({
         error
@@ -50,8 +55,8 @@ export class UserController {
 
       return res.status(200).json(response);
     } catch (error) {
-      return res.json({
-        error: "Error fetching user",
+      return res.status(404).json({
+        error: "User not found",
       });
     }
   }
@@ -87,73 +92,85 @@ export class UserController {
     }
   }
 
-  async updateUserCredentials(req: Request, res: Response){
+  async updateUserCredentials(req: Request, res: Response) {
 
     try {
-        let user_id = req.params.user_id
-        let {username, email, password} = req.body
+      let user_id = req.params.user_id
+      let { username, email, password } = req.body
 
-        let user= {
-            user_id: user_id,
-            username,
-            email,
-            password
-        }
-        let response = await UserService.updateUserCredentials(user)
-        return res.status(201).json(response)
+      let user = {
+        user_id: user_id,
+        username,
+        email,
+        password
+      }
+      let response = await UserService.updateUserCredentials(user)
+      return res.status(201).json(response)
     } catch (error) {
-        return res.json({
-            error:error
-        })
+      return res.json({
+        error: error
+      })
     }
-}
-
-async deactivateUser(req: Request, res: Response) {
-  try {
-    let { user_id } = req.params;
-
-    let response = await UserService.deactivateUser(user_id);
-    return res.status(200).json(response);
-
-  } catch (error) {
-    return res.status(500).json({
-      error: 'Error deactivating user'
-    });
   }
-}
 
-async activateUser(req: Request, res: Response) {
-  try {
-    let { user_id } = req.params;
+  async deactivateUser(req: Request, res: Response) {
+    try {
+      let { user_id } = req.params;
 
-    let response = await UserService.activateUser(user_id);
-    return res.status(200).json(response);
+      let response = await UserService.deactivateUser(user_id);
+      return res.status(200).json(response);
 
-  } catch (error) {
-    return res.status(500).json({
-      error: 'Error activating user'
-    });
+    } catch (error) {
+      return res.status(500).json({
+        error: 'Error deactivating user'
+      });
+    }
   }
-}
 
-async getNumberOfUsers(req: Request, res: Response) {
-  try {
+  async activateUser(req: Request, res: Response) {
+    try {
+      let { user_id } = req.params;
+
+      let response = await UserService.activateUser(user_id);
+      return res.status(200).json(response);
+
+    } catch (error) {
+      return res.status(500).json({
+        error: 'Error activating user'
+      });
+    }
+  }
+
+  async getNumberOfUsers(req: Request, res: Response) {
+    try {
       let result = await UserService.getNumberOfUsers();
       return res.status(200).json(result);
-  } catch (error) {
+    } catch (error) {
       return res.status(500).json({ error: 'Error fetching number of users' });
+    }
   }
-}
 
-async getUserRolesCount(req: Request, res: Response) {
-  try {
+  async getUserRolesCount(req: Request, res: Response) {
+    try {
       let result = await UserService.getUserRolesCount();
       return res.status(200).json(result);
-  } catch (error) {
+    } catch (error) {
       return res.status(500).json({ error: 'Error fetching user roles count' });
+    }
   }
-}
 
 
 
+  async deleteUser(req: Request, res: Response) {
+    try {
+      let { user_id } = req.params;
+      let response = await UserService.deleteUser(user_id);
+      if (response.error) {
+        return res.status(404).json(response);
+      }
+      return res.status(200).json(response);
+    } catch (error) {
+      return res.status(500).json({ error: "Error deleting user" });
+    }
+  }
 }
