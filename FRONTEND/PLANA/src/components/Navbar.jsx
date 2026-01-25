@@ -3,7 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import './Navbar.css';
 
-const Navbar = () => {
+const Navbar = ({ simple = false }) => {
     const { user, logout, isAdmin } = useAuth();
     const navigate = useNavigate();
     const [scrolled, setScrolled] = useState(false);
@@ -39,13 +39,15 @@ const Navbar = () => {
         navigate('/');
     };
 
-    const navLinks = [
+    const navLinks = simple ? [
+        { name: 'Back to Website', path: '/' }
+    ] : [
         { name: 'Home', path: '/' },
         { name: 'Events', path: '/events' },
         { name: 'Support', path: '/support' },
     ];
 
-    if (user) {
+    if (!simple && user) {
         navLinks.push({ name: 'My Bookings', path: '/dashboard' });
         if (isAdmin) {
             navLinks.push({ name: 'Admin', path: '/admin' });
@@ -57,7 +59,7 @@ const Navbar = () => {
             <div className="navbar-container">
                 <Link to="/" className="navbar-logo">
                     <span className="logo-icon">✦</span>
-                    <span className="logo-text">PLANA</span>
+                    <span className="logo-text">{simple ? 'PLANA ADMIN' : 'PLANA'}</span>
                 </Link>
 
                 <ul className={`navbar-links ${menuOpen ? 'active' : ''}`}>
@@ -109,8 +111,8 @@ const Navbar = () => {
                     <span></span>
                     <span></span>
                 </button>
-            </div>
-        </nav>
+            </div >
+        </nav >
     );
 };
 

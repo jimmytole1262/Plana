@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
-import { eventService, authService } from '../services/api';
+import { eventService, authService, bookingService, issueService } from '../services/api';
 import { useAuth } from '../context/AuthContext';
 import { gsap } from 'gsap';
 import './AdminDashboard.css';
@@ -39,9 +39,9 @@ const AdminDashboard = () => {
             setEvents(eventsRes.data || []);
             setIssues(issuesRes.data.issues || []);
             setStats({
-                users: typeof usersCountRes.data === 'number' ? usersCountRes.data : (usersCountRes.data?.userCount || 0),
-                events: typeof eventsCountRes.data === 'number' ? eventsCountRes.data : (eventsCountRes.data?.eventCount || 0),
-                revenue: typeof revenueRes.data === 'number' ? revenueRes.data : (revenueRes.data?.totalRevenue || 0)
+                users: parseInt(typeof usersCountRes.data === 'number' ? usersCountRes.data : (usersCountRes.data?.userCount || 0)),
+                events: parseInt(typeof eventsCountRes.data === 'number' ? eventsCountRes.data : (eventsCountRes.data?.eventCount || 0)),
+                revenue: parseFloat(typeof revenueRes.data === 'number' ? revenueRes.data : (revenueRes.data?.totalRevenue || 0))
             });
         } catch (error) {
             console.error("Error fetching admin data:", error);
@@ -108,7 +108,7 @@ const AdminDashboard = () => {
 
     return (
         <div className="admin-wrapper">
-            <Navbar />
+            <Navbar simple={true} />
             <div className="admin-content">
                 <header className="admin-header">
                     <div className="header-top">
@@ -237,7 +237,7 @@ const AdminDashboard = () => {
                     </section>
                 )}
             </div>
-            <Footer />
+            <Footer simple={true} />
         </div>
     );
 };
