@@ -79,7 +79,7 @@ export class AuthService {
                         message: 'Account is deactivated. Please contact your admin'
                     };
                 }
-                const { email, ...rest } = result.recordset[0];
+                const { email, password, ...rest } = result.recordset[0];
                 let token = jwt.sign(rest, process.env.SECRET_KEY as string, {
                     expiresIn: '2h'
                 })
