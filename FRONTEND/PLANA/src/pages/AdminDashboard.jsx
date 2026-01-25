@@ -140,7 +140,7 @@ const AdminDashboard = () => {
             <div className="admin-content">
                 <header className="admin-header">
                     <div className="header-top">
-                        <h1>Executive Console</h1>
+                        <h1>Executive Console (Live Mode)</h1>
                         <button className="create-btn" onClick={() => setShowCreateForm(true)}>+ Create Event</button>
                     </div>
                     <p>Global oversight and event management.</p>
