@@ -130,13 +130,10 @@ const AdminDashboard = () => {
     return (
         <div className="admin-wrapper">
             <Navbar simple={true} />
-            <div style={{ background: 'red', color: 'white', padding: '10px', textAlign: 'center', fontWeight: 'bold', position: 'relative', zIndex: 2000 }}>
-                ADMIN VERSION 3 - IF YOU SEE THIS, IT IS UPDATED
-            </div>
             <div className="admin-content">
                 <header className="admin-header">
                     <div className="header-top">
-                        <h1>ADMIN COMMAND CENTER (V3)</h1>
+                        <h1>Executive Console</h1>
                         <button className="create-btn" onClick={() => setShowCreateForm(true)}>+ Create Event</button>
                     </div>
                     <p>Global oversight and event management.</p>

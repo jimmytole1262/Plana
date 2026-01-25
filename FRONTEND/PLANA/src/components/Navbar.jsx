@@ -39,7 +39,6 @@ const Navbar = ({ simple = false }) => {
         navigate('/');
     };
 
-    console.log("Navbar mode - simple:", simple);
     const navLinks = simple ? [
         { name: 'Back to Website', path: '/' }
     ] : [
@@ -56,7 +55,7 @@ const Navbar = ({ simple = false }) => {
     }
 
     return (
-        <nav className={`navbar ${scrolled ? 'scrolled' : ''}`} style={simple ? { borderBottom: '3px solid red' } : {}}>
+        <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
             <div className="navbar-container">
                 <Link to="/" className="navbar-logo">
                     <span className="logo-icon">✦</span>
