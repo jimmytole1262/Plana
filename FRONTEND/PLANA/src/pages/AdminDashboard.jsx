@@ -12,7 +12,7 @@ const AdminDashboard = () => {
     const [issues, setIssues] = useState([]);
     const [stats, setStats] = useState({ users: 0, events: 0, revenue: 0 });
     const [loading, setLoading] = useState(true);
-    const [activeTab, setActiveTab] = useState('events'); // 'events' or 'issues'
+    const [activeTab, setActiveTab] = useState('events');
     const [showCreateForm, setShowCreateForm] = useState(false);
     const [responseForm, setResponseForm] = useState({ issue_id: '', text: '' });
     const [newEvent, setNewEvent] = useState({
@@ -27,24 +27,52 @@ const AdminDashboard = () => {
 
     const fetchAdminData = async () => {
         setLoading(true);
+        console.log("Fetching admin data...");
         try {
-            const [eventsRes, usersCountRes, eventsCountRes, revenueRes, issuesRes] = await Promise.all([
-                eventService.getAllEvents(),
-                authService.getUserCount(),
-                eventService.getEventCount(),
-                bookingService.getTotalRevenue(),
-                issueService.getAllIssues()
-            ]);
+            // Fetch individually for better error handling and debugging
+            try {
+                const eventsRes = await eventService.getAllEvents();
+                console.log("Events fetched:", eventsRes.data);
+                setEvents(eventsRes.data || []);
+            } catch (err) { console.error("Error fetching events:", err); }
 
-            setEvents(eventsRes.data || []);
-            setIssues(issuesRes.data.issues || []);
+            try {
+                const issuesRes = await issueService.getAllIssues();
+                console.log("Issues fetched:", issuesRes.data);
+                setIssues(issuesRes.data.issues || []);
+            } catch (err) { console.error("Error fetching issues:", err); }
+
+            let usersCount = 0;
+            let eventsCount = 0;
+            let totalRevenue = 0;
+
+            try {
+                const usersCountRes = await authService.getUserCount();
+                console.log("User count raw:", usersCountRes.data);
+                usersCount = parseInt(usersCountRes.data?.userCount ?? (typeof usersCountRes.data === 'number' ? usersCountRes.data : 0));
+            } catch (err) { console.error("Error fetching user count:", err); }
+
+            try {
+                const eventsCountRes = await eventService.getEventCount();
+                console.log("Event count raw:", eventsCountRes.data);
+                eventsCount = parseInt(eventsCountRes.data?.eventCount ?? (typeof eventsCountRes.data === 'number' ? eventsCountRes.data : 0));
+            } catch (err) { console.error("Error fetching event count:", err); }
+
+            try {
+                const revenueRes = await bookingService.getTotalRevenue();
+                console.log("Revenue raw:", revenueRes.data);
+                totalRevenue = parseFloat(revenueRes.data?.totalRevenue ?? (typeof revenueRes.data === 'number' ? revenueRes.data : 0));
+            } catch (err) { console.error("Error fetching revenue:", err); }
+
+            console.log("Final stats to set:", { users: usersCount, events: eventsCount, revenue: totalRevenue });
             setStats({
-                users: parseInt(typeof usersCountRes.data === 'number' ? usersCountRes.data : (usersCountRes.data?.userCount || 0)),
-                events: parseInt(typeof eventsCountRes.data === 'number' ? eventsCountRes.data : (eventsCountRes.data?.eventCount || 0)),
-                revenue: parseFloat(typeof revenueRes.data === 'number' ? revenueRes.data : (revenueRes.data?.totalRevenue || 0))
+                users: usersCount,
+                events: eventsCount,
+                revenue: totalRevenue
             });
+
         } catch (error) {
-            console.error("Error fetching admin data:", error);
+            console.error("Critical error in fetchAdminData:", error);
         } finally {
             setLoading(false);
         }
@@ -73,7 +101,7 @@ const AdminDashboard = () => {
                 ...newEvent,
                 event_id: Math.random().toString(36).substr(2, 9),
                 available_tickets: newEvent.total_tickets,
-                isApproved: true // Admin created events are auto-approved
+                isApproved: true
             };
             await eventService.createEvent(eventData);
             alert("Event created successfully!");
