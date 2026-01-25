@@ -206,8 +206,8 @@ export class userService {
 
   async getNumberOfUsers() {
     try {
-      let result = await pool.query('SELECT COUNT(*) as "numberOfUsers" FROM Users');
-      return { numberOfUsers: parseInt(result.rows[0].numberOfUsers) };
+      let result = await pool.query('SELECT COUNT(*) as "userCount" FROM Users');
+      return { userCount: parseInt(result.rows[0].userCount) };
     } catch (error) {
       console.error('SQL error', error);
       throw error;

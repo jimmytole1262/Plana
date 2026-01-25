@@ -161,8 +161,8 @@ export class EventService {
 
     async getNumberOfEvents() {
         try {
-            let result = await pool.query('SELECT COUNT(*) as "numberOfEvents" FROM Events');
-            return { numberOfEvents: parseInt(result.rows[0].numberOfEvents) };
+            let result = await pool.query('SELECT COUNT(*) as "eventCount" FROM Events');
+            return { eventCount: parseInt(result.rows[0].eventCount) };
         } catch (error) {
             console.error('SQL error', error);
             throw error;
