@@ -1,5 +1,6 @@
 .admin-wrapper {
-    background: #080808;
+    background: #000c1f;
+    /* Deeper blue to differentiate from black home page */
     color: #fff;
     min-height: 100vh;
 }

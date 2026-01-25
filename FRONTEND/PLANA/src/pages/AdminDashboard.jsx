@@ -27,18 +27,15 @@ const AdminDashboard = () => {
 
     const fetchAdminData = async () => {
         setLoading(true);
-        console.log("Fetching admin data...");
+        console.log("Fetching admin data (V3)...");
         try {
-            // Fetch individually for better error handling and debugging
             try {
                 const eventsRes = await eventService.getAllEvents();
-                console.log("Events fetched:", eventsRes.data);
                 setEvents(eventsRes.data || []);
             } catch (err) { console.error("Error fetching events:", err); }
 
             try {
                 const issuesRes = await issueService.getAllIssues();
-                console.log("Issues fetched:", issuesRes.data);
                 setIssues(issuesRes.data.issues || []);
             } catch (err) { console.error("Error fetching issues:", err); }
 
@@ -48,23 +45,19 @@ const AdminDashboard = () => {
 
             try {
                 const usersCountRes = await authService.getUserCount();
-                console.log("User count raw:", usersCountRes.data);
                 usersCount = parseInt(usersCountRes.data?.userCount || 0);
             } catch (err) { console.error("Error fetching user count:", err); }
 
             try {
                 const eventsCountRes = await eventService.getEventCount();
-                console.log("Event count raw:", eventsCountRes.data);
                 eventsCount = parseInt(eventsCountRes.data?.eventCount || 0);
             } catch (err) { console.error("Error fetching event count:", err); }
 
             try {
                 const revenueRes = await bookingService.getTotalRevenue();
-                console.log("Revenue raw:", revenueRes.data);
-                totalRevenue = parseFloat(revenueRes.data?.totalRevenue ?? (typeof revenueRes.data === 'number' ? revenueRes.data : 0));
+                totalRevenue = parseFloat(revenueRes.data?.totalRevenue || 0);
             } catch (err) { console.error("Error fetching revenue:", err); }
 
-            console.log("Final stats to set:", { users: usersCount, events: eventsCount, revenue: totalRevenue });
             setStats({
                 users: usersCount,
                 events: eventsCount,
@@ -137,10 +130,13 @@ const AdminDashboard = () => {
     return (
         <div className="admin-wrapper">
             <Navbar simple={true} />
+            <div style={{ background: 'red', color: 'white', padding: '10px', textAlign: 'center', fontWeight: 'bold', position: 'relative', zIndex: 2000 }}>
+                ADMIN VERSION 3 - IF YOU SEE THIS, IT IS UPDATED
+            </div>
             <div className="admin-content">
                 <header className="admin-header">
                     <div className="header-top">
-                        <h1>ADMIN COMMAND CENTER (V2)</h1>
+                        <h1>ADMIN COMMAND CENTER (V3)</h1>
                         <button className="create-btn" onClick={() => setShowCreateForm(true)}>+ Create Event</button>
                     </div>
                     <p>Global oversight and event management.</p>
