@@ -49,13 +49,13 @@ const AdminDashboard = () => {
             try {
                 const usersCountRes = await authService.getUserCount();
                 console.log("User count raw:", usersCountRes.data);
-                usersCount = parseInt(usersCountRes.data?.userCount ?? (typeof usersCountRes.data === 'number' ? usersCountRes.data : 0));
+                usersCount = parseInt(usersCountRes.data?.userCount || 0);
             } catch (err) { console.error("Error fetching user count:", err); }
 
             try {
                 const eventsCountRes = await eventService.getEventCount();
                 console.log("Event count raw:", eventsCountRes.data);
-                eventsCount = parseInt(eventsCountRes.data?.eventCount ?? (typeof eventsCountRes.data === 'number' ? eventsCountRes.data : 0));
+                eventsCount = parseInt(eventsCountRes.data?.eventCount || 0);
             } catch (err) { console.error("Error fetching event count:", err); }
 
             try {
@@ -140,7 +140,7 @@ const AdminDashboard = () => {
             <div className="admin-content">
                 <header className="admin-header">
                     <div className="header-top">
-                        <h1>Executive Console (Live Mode)</h1>
+                        <h1>ADMIN COMMAND CENTER (V2)</h1>
                         <button className="create-btn" onClick={() => setShowCreateForm(true)}>+ Create Event</button>
                     </div>
                     <p>Global oversight and event management.</p>
