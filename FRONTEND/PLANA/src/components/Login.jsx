@@ -8,14 +8,10 @@ import { FaEye, FaEyeSlash } from "react-icons/fa6";
 import { authService } from "../services/api";
 import { useAuth } from "../context/AuthContext";
 
-import GoogleAuthModal from "./GoogleAuthModal";
-import GoogleSignInWrapper from "./GoogleSignIn";
-
 const Login = () => {
   const navigate = useNavigate();
   const { login } = useAuth();
   const [showPassword, setShowPassword] = useState(false);
-  const [showGoogleModal, setShowGoogleModal] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -26,20 +22,6 @@ const Login = () => {
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleSelectAccount = (account) => {
-    setFormData({
-      ...formData,
-      email: account.email
-    });
-    // Create a slight pulse effect on the input to show it changed
-    gsap.to("input[name='email']", {
-      backgroundColor: "rgba(212, 175, 55, 0.2)",
-      duration: 0.3,
-      yoyo: true,
-      repeat: 1
-    });
   };
 
   const handleSubmit = async (e) => {
@@ -89,11 +71,6 @@ const Login = () => {
 
     return () => ctx.revert();
   }, []);
-
-  const handleGoogleAuth = (e) => {
-    e.preventDefault();
-    setShowGoogleModal(true);
-  };
 
   return (
     <div className="login-main" ref={containerRef}>
@@ -161,11 +138,6 @@ const Login = () => {
           </div>
         </div>
       </div>
-      <GoogleAuthModal
-        isOpen={showGoogleModal}
-        onClose={() => setShowGoogleModal(false)}
-        onSelect={handleSelectAccount}
-      />
     </div>
   );
 };
