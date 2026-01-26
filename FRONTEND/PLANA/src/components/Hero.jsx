@@ -23,7 +23,7 @@ const Hero = () => {
                 id: 'hero-trigger',
                 trigger: tunnelRef.current,
                 start: 'top top',
-                end: '+=400%',
+                end: '+=100%',
                 scrub: 1.5, // Smoother scrub
                 pin: true,
                 anticipatePin: 1,
@@ -47,7 +47,16 @@ const Hero = () => {
                 z: 600,
                 rotateY: 0,
                 ease: "power2.inOut",
-            }, index * 0.2); // Staggered start in the timeline
+            }, index * 0.4); // Staggered start in the timeline
+
+            // Fade out the last card as we approach the end
+            if (index === cards.length - 1) {
+                tl.to(card, {
+                    opacity: 0,
+                    scale: 4,
+                    duration: 0.5,
+                }, index * 0.4 + 0.5);
+            }
         });
 
         // Parallax and fade for title
@@ -72,9 +81,6 @@ const Hero = () => {
         { img: corporateImg, title: 'Corporate Excellence', delay: 0 },
         { img: weddingImg, title: 'Dream Weddings', delay: 0.2 },
         { img: concertImg, title: 'Epic Concerts', delay: 0.4 },
-        { img: corporateImg, title: 'Galas & Conferences', delay: 0.6 },
-        { img: weddingImg, title: 'Intimate Celebrations', delay: 0.8 },
-        { img: concertImg, title: 'Festival Productions', delay: 1 },
     ];
 
     return (

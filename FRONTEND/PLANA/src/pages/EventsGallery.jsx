@@ -96,7 +96,7 @@ const EventsGallery = () => {
 
                 {loading ? (
                     <div className="loading">Refining the gallery...</div>
-                ) : (
+                ) : filteredEvents.length > 0 ? (
                     <div className="events-grid">
                         {filteredEvents.map((event, index) => (
                             <div key={event.event_id} className="event-card">
@@ -127,6 +127,20 @@ const EventsGallery = () => {
                                 </div>
                             </div>
                         ))}
+                    </div>
+                ) : (
+                    <div className="empty-state-container">
+                        <div className="empty-state-card glass-card">
+                            <div className="empty-state-icon">✨</div>
+                            <h2>The Stage is Being Set</h2>
+                            <p>
+                                Our next masterpiece of curated experiences is currently in the works.
+                                We are orchestrating something extraordinary for our exclusive guests.
+                            </p>
+                            <div className="empty-state-footer">
+                                <span>Stay Tuned • Something Grand is Coming</span>
+                            </div>
+                        </div>
                     </div>
                 )}
             </div>
