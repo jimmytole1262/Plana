@@ -58,6 +58,17 @@ const GoogleSignIn = () => {
 
 // Wrap with Provider
 const GoogleSignInWrapper = () => {
+    console.log('Google Client ID found:', GOOGLE_CLIENT_ID ? 'YES' : 'NO');
+
+    if (!GOOGLE_CLIENT_ID) {
+        return (
+            <div style={{ color: '#ff4d4d', padding: '10px', fontSize: '12px', textAlign: 'center' }}>
+                Google Configuration Error: Client ID missing. <br />
+                Please ensure VITE_GOOGLE_CLIENT_ID is set in your .env file and restart the server.
+            </div>
+        );
+    }
+
     return (
         <GoogleOAuthProvider clientId={GOOGLE_CLIENT_ID}>
             <GoogleSignIn />
