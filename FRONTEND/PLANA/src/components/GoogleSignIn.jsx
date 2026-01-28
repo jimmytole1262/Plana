@@ -1,6 +1,4 @@
-import React from 'react';
-import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
-import axios from 'axios';
+import api from '../services/api';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
@@ -12,8 +10,8 @@ const GoogleSignIn = () => {
 
     const handleSuccess = async (credentialResponse) => {
         try {
-            // Send token to your backend
-            const response = await axios.post('http://localhost:5500/api/auth/google', {
+            // Send token to your backend via the central api instance
+            const response = await api.post('/api/auth/google', {
                 token: credentialResponse.credential
             });
 
