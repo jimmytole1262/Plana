@@ -110,7 +110,7 @@ const Hero = () => {
                     <p className="hero-subtitle">We Transform Visions Into Extraordinary Experiences</p>
 
                     <div className="hero-cta">
-                        <button className="btn-primary">Plan Your Event</button>
+                        <button className="btn-primary" onClick={() => window.location.href = '/signup'}>Plan Your Event</button>
                     </div>
                 </div>
 
