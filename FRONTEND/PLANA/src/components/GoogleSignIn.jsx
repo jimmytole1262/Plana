@@ -31,8 +31,14 @@ const GoogleSignIn = () => {
             navigate('/');
 
         } catch (error) {
-            console.error('Login failed:', error);
-            alert('Login failed. Please try again.');
+            console.error('Login failed details:', {
+                message: error.message,
+                status: error.response?.status,
+                data: error.response?.data,
+                url: error.config?.url
+            });
+            const errorMsg = error.response?.data?.error || error.response?.data?.message || error.message;
+            alert(`Login failed: ${errorMsg}`);
         }
     };
 
