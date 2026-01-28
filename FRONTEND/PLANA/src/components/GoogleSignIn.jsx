@@ -2,7 +2,7 @@ import api from '../services/api';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
 
-const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID || '';
+const GOOGLE_CLIENT_ID = import.meta.env.VITE_GOOGLE_CLIENT_ID || '390080348173-8nsq5sqv8m7p6ai0h7dgj4118soibh18.apps.googleusercontent.com';
 
 const GoogleSignIn = () => {
     const { login } = useAuth();
