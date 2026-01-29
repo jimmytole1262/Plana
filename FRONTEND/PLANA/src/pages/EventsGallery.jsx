@@ -14,6 +14,7 @@ const EventsGallery = () => {
     const [loading, setLoading] = useState(true);
     const [filter, setFilter] = useState(searchParams.get('category') || 'all');
     const [searchTerm, setSearchTerm] = useState('');
+    const scrollContainerRef = React.useRef(null);
 
     useEffect(() => {
         const fetchEvents = async () => {
@@ -32,11 +33,15 @@ const EventsGallery = () => {
         fetchEvents();
     }, []);
 
-    console.log('Current Events State:', events);
-    console.log('Current Filter:', filter);
+    const scroll = (direction) => {
+        if (scrollContainerRef.current) {
+            const { scrollLeft, clientWidth } = scrollContainerRef.current;
+            const scrollTo = direction === 'left' ? scrollLeft - clientWidth : scrollLeft + clientWidth;
+            scrollContainerRef.current.scrollTo({ left: scrollTo, behavior: 'smooth' });
+        }
+    };
 
     const filteredEvents = events.filter(event => {
-        // Make category filtering case-insensitive and match partial strings
         const matchesFilter = filter === 'all' ||
             (event.category && event.category.toLowerCase().includes(filter.toLowerCase()));
         const matchesSearch = event.title.toLowerCase().includes(searchTerm.toLowerCase());
@@ -108,36 +113,42 @@ const EventsGallery = () => {
                 {loading ? (
                     <div className="loading">Refining the gallery...</div>
                 ) : filteredEvents.length > 0 ? (
-                    <div className="events-grid">
-                        {filteredEvents.map((event, index) => (
-                            <div key={event.event_id} className="event-card">
-                                <div className="event-image-container">
-                                    <img src={event.image || 'https://images.unsplash.com/photo-1514525253361-bee24387c974'} alt={event.title} />
-                                    <div className="event-price">${event.price}</div>
-                                </div>
-                                <div className="event-details">
-                                    <span className="event-tag">{event.ticket_type}</span>
-                                    <h3>{event.title || "Untitled Event"}</h3>
-                                    <p className="event-meta">
-                                        <span>📅 {new Date(event.date).toLocaleDateString()}</span>
-                                        <span>📍 {event.location}</span>
-                                    </p>
-                                    <p className="event-desc">{event.description?.substring(0, 100) || "Explore this curated experience..."}</p>
-                                    <div className="event-footer">
-                                        <span className={`availability ${event.available_tickets < 10 ? 'low' : ''}`}>
-                                            {event.available_tickets} slots left
-                                        </span>
-                                        <button
-                                            className="book-btn"
-                                            onClick={() => handleBook(event.event_id)}
-                                            disabled={event.available_tickets === 0}
-                                        >
-                                            {event.available_tickets === 0 ? 'Sold Out' : 'Book Now'}
-                                        </button>
+                    <div className="carousel-wrapper">
+                        <button className="nav-btn prev" onClick={() => scroll('left')} aria-label="Previous">‹</button>
+                        <div className="events-grid carousel-container" ref={scrollContainerRef}>
+                            {filteredEvents.map((event) => (
+                                <div key={event.event_id} className="event-card">
+                                    <div className="event-image-container">
+                                        <img src={event.image || 'https://images.unsplash.com/photo-1514525253361-bee24387c974'} alt={event.title} />
+                                        <div className="event-price">${event.price}</div>
+                                    </div>
+                                    <div className="event-details">
+                                        <div className="event-header-info">
+                                            <span className="event-tag">{event.ticket_type}</span>
+                                            <h3>{event.title || "Untitled Event"}</h3>
+                                        </div>
+                                        <p className="event-meta">
+                                            <span>📅 {new Date(event.date).toLocaleDateString()}</span>
+                                            <span>📍 {event.location}</span>
+                                        </p>
+                                        <p className="event-desc">{event.description?.substring(0, 100) || "Explore this curated experience..."}...</p>
+                                        <div className="event-footer">
+                                            <span className={`availability ${event.available_tickets < 10 ? 'low' : ''}`}>
+                                                {event.available_tickets} slots left
+                                            </span>
+                                            <button
+                                                className="book-btn"
+                                                onClick={() => handleBook(event.event_id)}
+                                                disabled={event.available_tickets === 0}
+                                            >
+                                                {event.available_tickets === 0 ? 'Sold Out' : 'Book Now'}
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        ))}
+                            ))}
+                        </div>
+                        <button className="nav-btn next" onClick={() => scroll('right')} aria-label="Next">›</button>
                     </div>
                 ) : (
                     <div className="loading">No events found in this category.</div>
