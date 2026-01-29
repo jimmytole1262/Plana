@@ -7,7 +7,18 @@ import { pool } from '../config/db.config';
 import { v4 } from 'uuid';
 
 const authServiceInstance = new AuthService();
-const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+
+// Lazy initialization of OAuth client to prevent startup crashes if env var is missing
+let client: OAuth2Client | null = null;
+function getGoogleClient(): OAuth2Client {
+    if (!client && process.env.GOOGLE_CLIENT_ID) {
+        client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+    }
+    if (!client) {
+        throw new Error('GOOGLE_CLIENT_ID not configured');
+    }
+    return client;
+}
 
 export const loginUser = async (req: Request, res: Response) => {
     const { email, password } = req.body;
@@ -40,7 +51,8 @@ export const googleLogin = async (req: Request, res: Response) => {
 
     try {
         // Verify the Google token
-        const ticket = await client.verifyIdToken({
+        const googleClient = getGoogleClient();
+        const ticket = await googleClient.verifyIdToken({
             idToken: token,
             audience: process.env.GOOGLE_CLIENT_ID,
         });
