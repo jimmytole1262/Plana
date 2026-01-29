@@ -7,6 +7,7 @@ import GoogleSvg from "../assets/icons8-google.svg";
 import { FaEye, FaEyeSlash } from "react-icons/fa6";
 import { authService } from "../services/api";
 import { useAuth } from "../context/AuthContext";
+import GoogleSignInWrapper from "./GoogleSignIn";
 
 const Login = () => {
   const navigate = useNavigate();
