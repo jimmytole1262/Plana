@@ -1,0 +1,42 @@
+[
+  {
+    "event_id": "898d8ca3-82e5-4af9-b965-47b532797a97",
+    "title": "Persistent Test Event",
+    "description": "Auto-seeded event for testing",
+    "date": "2026-01-26T11:49:58.134Z",
+    "location": "Test City",
+    "ticket_type": "Regular",
+    "price": "10.00",
+    "image": "test.png",
+    "total_tickets": 100,
+    "available_tickets": 100,
+    "isApproved": true,
+    "id": "898d8ca3-82e5-4af9-b965-47b532797a97",
+    "eventId": "898d8ca3-82e5-4af9-b965-47b532797a97",
+    "start_date": "2026-01-26T11:49:58.134Z",
+    "tickets_available": 100,
+    "tickets_total": 100,
+    "capacity": 100,
+    "ticket_price": "10.00"
+  },
+  {
+    "event_id": "3cc2b0fa-0460-4e5c-9142-b7d4c0e7ca94",
+    "title": "Tech Summit 2026",
+    "description": " Leading technology conference featuring AI, Cloud, and Innovation. Join industry experts, developers, and tech enthusiasts for inspiring talks, hands-on workshops, and networking opportunities.",
+    "date": "2026-01-30T21:00:00.000Z",
+    "location": "Nairobi, Kenya",
+    "ticket_type": "Regular",
+    "price": "5000.00",
+    "image": "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&h=600&fit=crop",
+    "total_tickets": 100,
+    "available_tickets": 100,
+    "isApproved": true,
+    "id": "3cc2b0fa-0460-4e5c-9142-b7d4c0e7ca94",
+    "eventId": "3cc2b0fa-0460-4e5c-9142-b7d4c0e7ca94",
+    "start_date": "2026-01-30T21:00:00.000Z",
+    "tickets_available": 100,
+    "tickets_total": 100,
+    "capacity": 100,
+    "ticket_price": "5000.00"
+  }
+]

@@ -19,6 +19,7 @@ const EventsGallery = () => {
         const fetchEvents = async () => {
             try {
                 const response = await eventService.getAllEvents();
+                console.log('API Response:', response.data);
                 // Filter only approved events for regular gallery
                 setEvents(response.data?.filter(e => e.isApproved) || []);
             } catch (error) {
@@ -34,6 +35,9 @@ const EventsGallery = () => {
         gsap.from(".gallery-header", { opacity: 0, scale: 0.9, duration: 1 });
         gsap.from(".filter-bar", { opacity: 0, y: 20, delay: 0.5 });
     }, []);
+
+    console.log('Current Events State:', events);
+    console.log('Current Filter:', filter);
 
     const filteredEvents = events.filter(event => {
         // Make category filtering case-insensitive and match partial strings
