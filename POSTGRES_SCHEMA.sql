@@ -22,9 +22,11 @@ CREATE TABLE IF NOT EXISTS Events (
     image VARCHAR(255),
     total_tickets INTEGER,
     available_tickets INTEGER,
+    category VARCHAR(50) DEFAULT 'other',
     "isApproved" BOOLEAN DEFAULT false,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
+
 
 -- Bookings Table
 CREATE TABLE IF NOT EXISTS Bookings (
