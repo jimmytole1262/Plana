@@ -17,55 +17,71 @@ const Hero = () => {
     useEffect(() => {
         const cards = gsap.utils.toArray('.event-card');
 
-        // Master Timeline for better performance and synchronization
+        // Master Timeline with extended scroll distance for perfect zoom effect
         const tl = gsap.timeline({
             scrollTrigger: {
                 id: 'hero-trigger',
                 trigger: tunnelRef.current,
                 start: 'top top',
-                end: '+=100%',
-                scrub: 1.5, // Smoother scrub
+                end: '+=200%', // Extended scroll distance for better zoom effect
+                scrub: 1, // Smoother, more responsive scrubbing
                 pin: true,
                 anticipatePin: 1,
+                invalidateOnRefresh: true,
             }
         });
 
-        // Initialize cards state
+        // Initialize cards with better depth positioning
         gsap.set(cards, {
-            scale: 0.5,
+            scale: 0.3,
             opacity: 0,
-            z: (i) => -800 - (i * 400),
-            rotateY: (i) => (i % 2 === 0 ? 15 : -15), // Slight tilt for depth
-            transformPerspective: 1000,
+            z: (i) => -1200 - (i * 600), // Deeper initial position
+            rotateY: (i) => (i % 2 === 0 ? 20 : -20), // More dramatic tilt
+            rotateX: 5,
+            transformPerspective: 1200,
         });
 
-        // Animate each card into view and past the camera
+        // Animate each card with perfect zoom in/out effect
         cards.forEach((card, index) => {
-            tl.to(card, {
-                scale: 3,
-                opacity: 1,
-                z: 600,
-                rotateY: 0,
-                ease: "power2.inOut",
-            }, index * 0.4); // Staggered start in the timeline
+            const startTime = index * 0.35;
 
-            // Fade out the last card as we approach the end
-            if (index === cards.length - 1) {
-                tl.to(card, {
-                    opacity: 0,
-                    scale: 4,
-                    duration: 0.5,
-                }, index * 0.4 + 0.5);
-            }
+            // Zoom in phase - card comes from distance
+            tl.to(card, {
+                scale: 1.2,
+                opacity: 1,
+                z: 100,
+                rotateY: 0,
+                rotateX: 0,
+                ease: "power1.inOut",
+                duration: 0.5,
+            }, startTime);
+
+            // Hold at center briefly
+            tl.to(card, {
+                scale: 1.3,
+                z: 150,
+                ease: "none",
+                duration: 0.2,
+            }, startTime + 0.5);
+
+            // Zoom out phase - card flies past camera
+            tl.to(card, {
+                scale: 4,
+                opacity: 0,
+                z: 800,
+                rotateY: (index % 2 === 0 ? -15 : 15),
+                ease: "power2.in",
+                duration: 0.6,
+            }, startTime + 0.7);
         });
 
-        // Parallax and fade for title
+        // Enhanced parallax for title with smoother fade
         tl.to(titleRef.current, {
-            y: 200,
+            y: 300,
             opacity: 0,
-            scale: 0.8,
-            filter: 'blur(10px)',
-            ease: "none",
+            scale: 0.7,
+            filter: 'blur(15px)',
+            ease: "power1.in",
         }, 0);
 
         // Cleanup
