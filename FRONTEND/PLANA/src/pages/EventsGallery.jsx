@@ -36,7 +36,9 @@ const EventsGallery = () => {
     }, []);
 
     const filteredEvents = events.filter(event => {
-        const matchesFilter = filter === 'all' || event.category === filter;
+        // Make category filtering case-insensitive and match partial strings
+        const matchesFilter = filter === 'all' ||
+            (event.category && event.category.toLowerCase().includes(filter.toLowerCase()));
         const matchesSearch = event.title.toLowerCase().includes(searchTerm.toLowerCase());
         return matchesFilter && matchesSearch;
     });
