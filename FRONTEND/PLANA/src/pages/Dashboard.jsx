@@ -86,7 +86,14 @@ const Dashboard = () => {
                                     </div>
                                     <div className="booking-status">
                                         <span className="status-badge">Confirmed</span>
-                                        <button className="view-ticket-btn">View Ticket</button>
+                                        <button
+                                            className="view-ticket-btn"
+                                            onClick={() => {
+                                                alert(`🎫 Your Ticket\n\nEvent: ${booking.title || "Unknown Event"}\nDate: ${booking.date ? new Date(booking.date).toLocaleDateString() : "No date"}\nLocation: ${booking.location || "No location"}\nBooking ID: ${booking.booking_id}\n\nStatus: Confirmed ✅`);
+                                            }}
+                                        >
+                                            View Ticket
+                                        </button>
                                     </div>
                                 </div>
                             ))}
