@@ -20,6 +20,10 @@ app.use(bodyParser.json());
 app.use(express.json());
 // app.use(cors()) // Removed redundant call
 
+app.get('/', (req, res) => {
+  res.json({ status: 'ok', message: 'Plana Backend is running' });
+});
+
 app.use('/users', user_router);
 app.use('/events', event_router);
 app.use('/bookings', booking_router);
