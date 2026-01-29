@@ -82,21 +82,23 @@
 }
 
 .event-card {
-    background: #111111;
-    /* Solid dark background */
+    background: #222222 !important;
+    /* Force solid visibility */
     border-radius: 24px;
     overflow: hidden;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+    border: 2px solid #ffffff !important;
+    /* Thick white border */
+    transition: transform 0.3s ease;
     position: relative;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+    opacity: 1 !important;
+    /* Ensure opacity is 100% */
 }
 
 .event-card:hover {
-    transform: translateY(-10px);
-    background: #161616;
-    border-color: rgba(255, 255, 255, 0.2);
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+    transform: translateY(-8px);
+    border-color: #d4af37 !important;
+    /* Gold border on hover */
 }
 
 .event-image-container {
@@ -146,25 +148,28 @@
 }
 
 .event-details h3 {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     margin-bottom: 12px;
-    color: #fff;
+    color: #ffffff !important;
+    /* Pure white */
 }
 
 .event-meta {
     display: flex;
     gap: 15px;
-    color: #888;
-    font-size: 0.85rem;
+    color: #ffffff !important;
+    /* Pure white instead of muted */
+    font-size: 0.9rem;
     margin-bottom: 15px;
 }
 
 .event-desc {
-    color: #cccccc;
-    /* Brighter description text */
+    color: #ffffff !important;
+    /* Pure white */
     font-size: 0.95rem;
     line-height: 1.6;
     margin-bottom: 25px;
+    opacity: 0.9;
 }
 
 .event-footer {

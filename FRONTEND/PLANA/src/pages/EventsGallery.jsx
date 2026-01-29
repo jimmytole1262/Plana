@@ -30,10 +30,6 @@ const EventsGallery = () => {
         };
 
         fetchEvents();
-
-        // Animations
-        gsap.from(".gallery-header", { opacity: 0, scale: 0.9, duration: 1 });
-        gsap.from(".filter-bar", { opacity: 0, y: 20, delay: 0.5 });
     }, []);
 
     console.log('Current Events State:', events);
@@ -126,7 +122,7 @@ const EventsGallery = () => {
                                         <span>📅 {new Date(event.date).toLocaleDateString()}</span>
                                         <span>📍 {event.location}</span>
                                     </p>
-                                    <p className="event-desc">{event.description?.substring(0, 80) || "No description available"}...</p>
+                                    <p className="event-desc">{event.description?.substring(0, 100) || "Explore this curated experience..."}</p>
                                     <div className="event-footer">
                                         <span className={`availability ${event.available_tickets < 10 ? 'low' : ''}`}>
                                             {event.available_tickets} slots left
@@ -144,22 +140,9 @@ const EventsGallery = () => {
                         ))}
                     </div>
                 ) : (
-                    <div className="empty-state-container">
-                        <div className="empty-state-card glass-card">
-                            <div className="empty-state-icon">✨</div>
-                            <h2>The Stage is Being Set</h2>
-                            <p>
-                                Our next masterpiece of curated experiences is currently in the works.
-                                We are orchestrating something extraordinary for our exclusive guests.
-                            </p>
-                            <div className="empty-state-footer">
-                                <span>Stay Tuned • Something Grand is Coming</span>
-                            </div>
-                        </div>
-                    </div>
+                    <div className="loading">No events found in this category.</div>
                 )}
             </div>
-            <Footer />
         </div>
     );
 };
