@@ -16,9 +16,14 @@ export class EventService {
         if (!event.ticket_type) event.ticket_type = "Regular";
         if (!event.category) event.category = "other";
 
+        // Default isApproved to false if not provided, but respect the value if sent
+        if (event.isApproved === undefined || event.isApproved === null) {
+            event.isApproved = false;
+        }
+
         let result = await pool.query(
-            'INSERT INTO Events (event_id, title, description, date, location, ticket_type, price, image, total_tickets, available_tickets, category, "isApproved") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, false)',
-            [eventId, event.title, event.description, event.date, event.location, event.ticket_type, event.price, event.image, event.total_tickets, event.total_tickets, event.category]
+            'INSERT INTO Events (event_id, title, description, date, location, ticket_type, price, image, total_tickets, available_tickets, category, "isApproved") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)',
+            [eventId, event.title, event.description, event.date, event.location, event.ticket_type, event.price, event.image, event.total_tickets, event.total_tickets, event.category, event.isApproved]
         );
 
         console.log("database result:", result.rowCount);
