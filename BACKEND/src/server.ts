@@ -1,3 +1,6 @@
+import 'dotenv/config';
+import 'dotenv/config';
+import 'dotenv/config';
 import express, { NextFunction, Request, Response } from 'express';
 import bodyParser from 'body-parser';
 import user_router from './routers/user.router';
@@ -10,11 +13,7 @@ import auth_router from './routers/auth.router';
 
 const app = express();
 
-app.use(cors({
-  origin: '*', // Allow all origins for development
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  allowedHeaders: ['Content-Type', 'Authorization']
-}));
+app.use(cors()); // Enable all origins for production stability during troubleshooting
 
 app.use(bodyParser.json());
 app.use(express.json());
