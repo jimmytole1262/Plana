@@ -15,6 +15,12 @@ const app = express();
 
 app.use(cors()); // Enable all origins for production stability during troubleshooting
 
+// Log all incoming requests for debugging
+app.use((req, res, next) => {
+  console.log(`[${new Date().toISOString()}] ${req.method} ${req.path}`);
+  next();
+});
+
 app.use(bodyParser.json());
 app.use(express.json());
 // app.use(cors()) // Removed redundant call
