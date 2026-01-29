@@ -17,7 +17,7 @@ const AdminDashboard = () => {
     const [responseForm, setResponseForm] = useState({ issue_id: '', text: '' });
     const [newEvent, setNewEvent] = useState({
         title: '', description: '', date: '', location: '',
-        ticket_type: 'Regular', price: 0, image: '', total_tickets: 100
+        ticket_type: 'Regular', price: 0, image: '', total_tickets: 100, category: 'corporate'
     });
 
     useEffect(() => {
@@ -176,6 +176,16 @@ const AdminDashboard = () => {
                                         <option value="VIP">VIP</option>
                                         <option value="Premium">Premium</option>
                                     </select>
+                                    <select onChange={e => setNewEvent({ ...newEvent, category: e.target.value })} value={newEvent.category}>
+                                        <option value="corporate">Corporate Events</option>
+                                        <option value="weddings">Dream Weddings</option>
+                                        <option value="concerts">Live Concerts</option>
+                                        <option value="parties">Private Parties</option>
+                                        <option value="social">Social Gatherings</option>
+                                        <option value="festivals">Festival Production</option>
+                                    </select>
+                                </div>
+                                <div className="form-group">
                                     <input type="number" placeholder="Price" required onChange={e => setNewEvent({ ...newEvent, price: Number(e.target.value) })} />
                                 </div>
                                 <input type="text" placeholder="Image URL" onChange={e => setNewEvent({ ...newEvent, image: e.target.value })} />
