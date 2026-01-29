@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import { eventService, bookingService } from '../services/api';
@@ -8,9 +9,10 @@ import './EventsGallery.css';
 
 const EventsGallery = () => {
     const { user } = useAuth();
+    const [searchParams, setSearchParams] = useSearchParams();
     const [events, setEvents] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [filter, setFilter] = useState('All');
+    const [filter, setFilter] = useState(searchParams.get('category') || 'all');
     const [searchTerm, setSearchTerm] = useState('');
 
     useEffect(() => {
@@ -34,7 +36,7 @@ const EventsGallery = () => {
     }, []);
 
     const filteredEvents = events.filter(event => {
-        const matchesFilter = filter === 'All' || event.ticket_type === filter;
+        const matchesFilter = filter === 'all' || event.category === filter;
         const matchesSearch = event.title.toLowerCase().includes(searchTerm.toLowerCase());
         return matchesFilter && matchesSearch;
     });
@@ -82,13 +84,20 @@ const EventsGallery = () => {
                         className="search-input"
                     />
                     <div className="filter-chips">
-                        {['All', 'VIP', 'Regular', 'Premium'].map(cat => (
+                        {['all', 'corporate', 'weddings', 'concerts', 'parties', 'social', 'festivals'].map(cat => (
                             <button
                                 key={cat}
                                 className={`filter-chip ${filter === cat ? 'active' : ''}`}
-                                onClick={() => setFilter(cat)}
+                                onClick={() => {
+                                    setFilter(cat);
+                                    if (cat === 'all') {
+                                        setSearchParams({});
+                                    } else {
+                                        setSearchParams({ category: cat });
+                                    }
+                                }}
                             >
-                                {cat}
+                                {cat.charAt(0).toUpperCase() + cat.slice(1)}
                             </button>
                         ))}
                     </div>

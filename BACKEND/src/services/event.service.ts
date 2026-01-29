@@ -14,10 +14,11 @@ export class EventService {
         if (!event.price) event.price = 0;
         if (!event.image) event.image = "default_image.png";
         if (!event.ticket_type) event.ticket_type = "Regular";
+        if (!event.category) event.category = "other";
 
         let result = await pool.query(
-            'INSERT INTO Events (event_id, title, description, date, location, ticket_type, price, image, total_tickets, available_tickets, "isApproved") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, false)',
-            [eventId, event.title, event.description, event.date, event.location, event.ticket_type, event.price, event.image, event.total_tickets, event.total_tickets]
+            'INSERT INTO Events (event_id, title, description, date, location, ticket_type, price, image, total_tickets, available_tickets, category, "isApproved") VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, false)',
+            [eventId, event.title, event.description, event.date, event.location, event.ticket_type, event.price, event.image, event.total_tickets, event.total_tickets, event.category]
         );
 
         console.log("database result:", result.rowCount);

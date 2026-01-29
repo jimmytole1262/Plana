@@ -8,9 +8,10 @@ CREATE OR ALTER PROCEDURE createEvent
     @price FLOAT,
     @image VARCHAR(255),
     @total_tickets INT,
-    @available_tickets INT
+    @available_tickets INT,
+    @category VARCHAR(50)
 AS
 BEGIN
-    INSERT INTO Events (event_id, title, description, date, location, ticket_type, price, image, total_tickets, available_tickets)
-    VALUES (@event_id, @title, @description, @date, @location, @ticket_type, @price, @image, @total_tickets, @available_tickets);
+    INSERT INTO Events (event_id, title, description, date, location, ticket_type, price, image, total_tickets, available_tickets, category)
+    VALUES (@event_id, @title, @description, @date, @location, @ticket_type, @price, @image, @total_tickets, @available_tickets, @category);
 END

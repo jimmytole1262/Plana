@@ -1,4 +1,5 @@
 import { useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { FaBriefcase, FaHeart, FaGlassCheers, FaUsers, FaCamera, FaMusic } from 'react-icons/fa';
@@ -6,8 +7,19 @@ import './Services.css';
 
 gsap.registerPlugin(ScrollTrigger);
 
+// Map service titles to event categories
+const categoryMap = {
+    'Corporate Events': 'corporate',
+    'Dream Weddings': 'weddings',
+    'Live Concerts': 'concerts',
+    'Private Parties': 'parties',
+    'Social Gatherings': 'social',
+    'Festival Production': 'festivals'
+};
+
 const Services = () => {
     const servicesRef = useRef(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const cards = gsap.utils.toArray('.service-card');
@@ -34,6 +46,11 @@ const Services = () => {
             );
         });
     }, []);
+
+    const handleLearnMore = (serviceTitle) => {
+        const category = categoryMap[serviceTitle];
+        navigate(`/events?category=${category}`);
+    };
 
     const services = [
         {
@@ -100,7 +117,7 @@ const Services = () => {
                                     </li>
                                 ))}
                             </ul>
-                            <button className="service-btn">Learn More</button>
+                            <button className="service-btn" onClick={() => handleLearnMore(service.title)}>Learn More</button>
                         </div>
                     ))}
                 </div>

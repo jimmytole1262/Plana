@@ -10,5 +10,6 @@ export interface Event {
     total_tickets: number;
     available_tickets: number;
     isApproved: boolean;
+    category?: string; // Event category: corporate, weddings, concerts, etc.
     [key: string]: any; // Allow extra fields from test payloads
 }
